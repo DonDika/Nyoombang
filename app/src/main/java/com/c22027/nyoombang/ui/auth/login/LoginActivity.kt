@@ -1,16 +1,14 @@
-package com.c22027.nyoombang
+package com.c22027.nyoombang.ui.auth.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.c22027.nyoombang.R
 
-class MainActivity : AppCompatActivity() {
-
-    //Not yet implement
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        setContentView(R.layout.activity_login)
 
     }
 

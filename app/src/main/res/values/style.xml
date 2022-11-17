@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="Text">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <!--<item name="android:textColor">@color/white</item>-->
+    </style>
+
+    <style name="Text.Title1">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text.Title2">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+</resources>

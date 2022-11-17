@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Nyoombang</string>
+
+    <!--Login page-->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="sign_up_here">Sign Up Here</string>
+
+    <!--Register page-->
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="role">Role</string>
+    <string name="agreement">By signing up, you agree with our terms and services</string>
+    <string name="register">Register</string>
+
+    <!--Preview page-->
+    <string name="johny">JOHNY KENA SLENGKAT</string>
+    <string name="terkumpul">Terkumpul</string>
+    <string name="total_terkumpul">99,999,999</string>
+    <string name="giga_chad">GIGA CHAD</string>
+    <string name="event_berakhir">Event akan berakhir pada: </string>
+    <string name="tanggal_berakhir">dd/mm/yy</string>
+    <string name="share">Share</string>
+    <string name="donate">Donate</string>
+
+    <!--Pop up-->
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="log_out">Log Out</string>
+
+
+
 </resources>
