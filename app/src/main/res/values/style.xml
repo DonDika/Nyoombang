@@ -45,5 +45,13 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/color2</item>
+    </style>
+
+    <style name="TextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 
 </resources>
