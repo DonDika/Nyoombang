@@ -9,6 +9,7 @@
     <string name="sign_up_here"><u>Sign Up Here</u></string>
     <string name="required">Required*</string>
     <string name="email_error">Email address is invalid</string>
+    <string name="password_error">Password must be at least 6 characters long</string>
 
     <!--Register page-->
     <string name="name">Name</string>

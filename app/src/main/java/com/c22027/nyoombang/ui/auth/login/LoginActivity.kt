@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
@@ -32,18 +34,52 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             loginUser()
         }
-        binding.edtEmail.setOnFocusChangeListener{_,focused ->
-            if (!focused){
-                binding.textInputLayoutEmail.error = validEmail()
+        binding.edtEmail.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
-        }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.textInputLayoutEmail.error = validEmail()
+                setButtonEnable()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+
+        binding.edtPassword.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.textInputLayoutPassword.error = validPassword()
+                setButtonEnable()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
     }
 
     private fun validEmail(): String? {
      val emailText = binding.edtEmail.text.toString()
         if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
             return context.getString(R.string.email_error)
+        }
+        return null
+    }
+    private fun validPassword(): String? {
+        val passwordText = binding.edtPassword.text.toString()
+        if (!passwordText.isNullOrEmpty() && passwordText.length < 6){
+            return context.getString(R.string.password_error)
         }
         return null
     }
@@ -100,6 +136,13 @@ class LoginActivity : AppCompatActivity() {
 
 
         }
+    private fun setButtonEnable() {
+        binding.apply {
+            val password = edtPassword.text
+            val email = edtEmail.text
+            loginButton.isEnabled = password.toString().length >= 6 && Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()
+        }
+    }
 
 
 

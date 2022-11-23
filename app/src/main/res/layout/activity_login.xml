@@ -10,7 +10,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_email"
         style="@style/TextInputLayout"
-        android:layout_width="276dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:hint="@string/email"
@@ -34,15 +34,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password"
         style="@style/TextInputLayout"
-        android:layout_width="276dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="5dp"
         android:hint="@string/password"
         android:textColorHint="@color/color1"
         app:boxStrokeColor="@color/text_input_color"
-        app:counterEnabled="true"
-        app:counterMaxLength="16"
         app:endIconMode="password_toggle"
         app:hintTextColor="@color/color1"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -78,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/login"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
