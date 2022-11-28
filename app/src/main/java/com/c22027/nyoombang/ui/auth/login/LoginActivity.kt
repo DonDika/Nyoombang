@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
 import com.c22027.nyoombang.MainActivity
 import com.c22027.nyoombang.data.local.UserDataClass
 import com.c22027.nyoombang.databinding.ActivityLoginBinding
@@ -17,12 +19,14 @@ import com.c22027.nyoombang.ui.dasboard.DashboardActivity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.c22027.nyoombang.R
+import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var binding: ActivityLoginBinding
     private lateinit var context: Context
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         context = this
         sharedPreferencesHelper= SharedPreferencesHelper(context)
-
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         binding.loginButton.setOnClickListener {
             loginUser()
         }
@@ -66,6 +70,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
         })
+        binding.signUp.setOnClickListener {
+            val intent = Intent(this@LoginActivity,RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -87,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-        val query: Query = database.child("Login").orderByChild("email").equalTo(email)
+        val query: Query = database.child("User").orderByChild("email").equalTo(email)
         query.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
