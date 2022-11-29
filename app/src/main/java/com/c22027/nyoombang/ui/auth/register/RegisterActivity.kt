@@ -1,6 +1,6 @@
 package com.c22027.nyoombang.ui.auth.register
 
-import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,28 +11,71 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import com.c22027.nyoombang.MainActivity
 import com.c22027.nyoombang.R
+import com.c22027.nyoombang.data.local.UserDataClass
 import com.c22027.nyoombang.databinding.ActivityRegisterBinding
+import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.dashboard.DashboardActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
-    lateinit var ref: DatabaseReference
+    private lateinit var ref: DatabaseReference
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val registerViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
         registerViewModel.toastObserverMessage.observe(this){
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+        }
+        registerViewModel.firebaseData.observe(this) {
+            if (it != null) {
+                val email = it.email.toString()
+                val password = binding.edtPassword.text.toString()
+                val role = binding.edtDropdownInputRole.text.toString()
+                val name = binding.edtName.text.toString()
+                registerViewModel.addUser(email,password,role,name)
+                val query: Query = database.child("UsersProfile").orderByChild("email").equalTo(email)
+                query.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            for (item in snapshot.children) {
+                                val user = item.getValue<UserDataClass>()
+                                if (user != null) {
+                                    sharedPreferencesHelper.prefStatus = true
+                                    sharedPreferencesHelper.prefLevel = user.role
+                                    if (user.role.equals("User")) {
+                                        intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else{
+                                        intent =
+                                            Intent(this@RegisterActivity, DashboardActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                    })
+            }
         }
         init()
 

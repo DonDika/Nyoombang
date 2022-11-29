@@ -60,6 +60,16 @@
     <string name="check_password">Password not valid</string>
 
 
+    <!---Donation-->
+
+    <string name="community">Community Name</string>
+    <string name="place">Place</string>
+    <string name="date">dd/mm/yyyy</string>
+    <string name="time">hh:mm:ss</string>
+    <string name="total_donation">Rp.xxx.xxx</string>
+    <string name="status">Status</string>
+
+
 
 
 </resources>

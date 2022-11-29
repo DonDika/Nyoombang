@@ -1,4 +1,4 @@
-package com.c22027.nyoombang.ui.dasboard
+package com.c22027.nyoombang.ui.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

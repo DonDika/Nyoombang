@@ -1,10 +1,12 @@
 package com.c22027.nyoombang.ui.auth.register
 
+import android.text.Editable
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.c22027.nyoombang.data.local.UserDataClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -13,7 +15,8 @@ import com.google.firebase.database.FirebaseDatabase
 class RegisterViewModel: ViewModel(){
 
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val _userRegisterData = MutableLiveData<FirebaseUser>()
+    private val _firebaseData = MutableLiveData<FirebaseUser>()
+    val firebaseData: MutableLiveData<FirebaseUser> = _firebaseData
     private val _toastObserverMessage = MutableLiveData<String>()
     val toastObserverMessage: LiveData<String> = _toastObserverMessage
     lateinit var reference: DatabaseReference
@@ -56,38 +59,41 @@ class RegisterViewModel: ViewModel(){
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    addUser(email, password, role, name)
+                    _firebaseData.value = (firebaseAuth.currentUser)
                     Log.d("success", it.result.toString())
 
                 } else {
                     Log.d("error", it.exception.toString())
+                    _toastObserverMessage.value = it.exception?.message.toString()
 
                 }
             }
 
     }
 
-    private fun addUser(email: String, password: String, role: String, name: String) {
+    fun addUser(email: String, password: String, role: String, name: String) {
         val userId = firebaseAuth.currentUser!!.uid
-        reference = FirebaseDatabase.getInstance().reference.child("User")
-        val userMap = HashMap<String, Any>()
-        userMap["id"] = userId
-        userMap["email"] = email
-        userMap["password"] = password
-        userMap["role"] = role
-        userMap["name"] = name
-        userMap["twitter"] = ""
-        userMap["Description"] = ""
-        userMap[" facebook"] = ""
-        userMap["instagram"] = ""
-        reference.child(userId).setValue(userMap).addOnCompleteListener {
+        reference = FirebaseDatabase.getInstance().reference.child("UsersProfile")
+        val userProfile = UserDataClass(
+            userId,
+            email,
+            password,
+            role,
+            name,
+             "",
+            "",
+          "",
+           "",
+        )
+        reference.child(userId).setValue(userProfile).addOnCompleteListener{
             if (it.isSuccessful){
                 _toastObserverMessage.value = "Registration Success"
-            }else{
+        }else{
                 _toastObserverMessage.value = it.exception?.message.toString()
             }
 
         }
+
 
     }
 
