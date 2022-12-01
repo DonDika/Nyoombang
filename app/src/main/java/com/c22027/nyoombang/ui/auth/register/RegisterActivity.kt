@@ -26,7 +26,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var ref: DatabaseReference
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val registerViewModel by viewModels<RegisterViewModel>()
@@ -89,7 +88,6 @@ class RegisterActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, R.layout.list_item, items)
 
         auth = FirebaseAuth.getInstance()
-        ref = FirebaseDatabase.getInstance().getReference("USERS")
 
         ( binding.edtDropdownInputRole as? AutoCompleteTextView)?.setAdapter(adapter)
 
@@ -183,9 +181,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun register(){
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-        val name = binding.edtName.text.toString()
-        val role = binding.edtDropdownInputRole.text.toString()
-        registerViewModel.register(email, password, role, name)
+        registerViewModel.register(email, password)
         }
 
     private fun setButton(state : Boolean){

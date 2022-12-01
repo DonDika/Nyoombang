@@ -1,25 +1,22 @@
 package com.c22027.nyoombang.ui.auth.register
 
-import android.text.Editable
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.c22027.nyoombang.data.local.UserDataClass
+import com.c22027.nyoombang.repository.AppsRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class RegisterViewModel: ViewModel(){
+class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()): ViewModel(){
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val _firebaseData = MutableLiveData<FirebaseUser>()
-    val firebaseData: MutableLiveData<FirebaseUser> = _firebaseData
-    private val _toastObserverMessage = MutableLiveData<String>()
-    val toastObserverMessage: LiveData<String> = _toastObserverMessage
-    lateinit var reference: DatabaseReference
+
+    val firebaseData:MutableLiveData<FirebaseUser> = repository.firebaseUserData
+    val toastObserverMessage: MutableLiveData<String> = repository.toastObserverMessage
     private val _role = MutableLiveData<String?>()
     val role: LiveData<String?> = _role
 
@@ -42,12 +39,16 @@ class RegisterViewModel: ViewModel(){
     val password: LiveData<String> = _password
 
     private val _confirmPassword = MutableLiveData<String>()
-    val confirmPassowrd: LiveData<String> = _confirmPassword
+    val confirmPassword: LiveData<String> = _confirmPassword
 
     init {
         _btnRegister.value = false
         _role.value = ""
     }
+    fun register(email:String,password: String)= repository.register(email, password)
+
+    fun addUser(email: String,password: String,role:String, name: String) = repository.addUser(email,password,role,name)
+
 
     fun stateCheckBtnRegister(){
         _btnRegister.value = (_name.value.toString().isNotBlank() && _password.value.toString() == _confirmPassword.value.toString()
@@ -55,47 +56,8 @@ class RegisterViewModel: ViewModel(){
                 && _role.value.toString().isNotBlank())
     }
 
-    fun register(email: String, password: String,role: String,name:String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    _firebaseData.value = (firebaseAuth.currentUser)
-                    Log.d("success", it.result.toString())
-
-                } else {
-                    Log.d("error", it.exception.toString())
-                    _toastObserverMessage.value = it.exception?.message.toString()
-
-                }
-            }
-
-    }
-
-    fun addUser(email: String, password: String, role: String, name: String) {
-        val userId = firebaseAuth.currentUser!!.uid
-        reference = FirebaseDatabase.getInstance().reference.child("UsersProfile")
-        val userProfile = UserDataClass(
-            userId,
-            email,
-            password,
-            role,
-            name,
-             "",
-            "",
-          "",
-           "",
-        )
-        reference.child(userId).setValue(userProfile).addOnCompleteListener{
-            if (it.isSuccessful){
-                _toastObserverMessage.value = "Registration Success"
-        }else{
-                _toastObserverMessage.value = it.exception?.message.toString()
-            }
-
-        }
 
 
-    }
 
     fun stateCheckbox(state : Boolean){
         _btnCheck.value = state

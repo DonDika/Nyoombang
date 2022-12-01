@@ -10,7 +10,12 @@ data class UserDataClass (
     val description: String? = null,
     val twitter: String? = null,
     val facebook: String? = null,
-    val instagram: String? = null
-){
+    val instagram: String? = null,
+    val picture: String? = null,
+)
 
-}
+data class UpdateUserData(
+    val email: String,
+    val name: String,
+    val picture: String
+)

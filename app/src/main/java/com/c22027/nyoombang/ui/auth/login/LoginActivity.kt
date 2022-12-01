@@ -21,11 +21,11 @@ import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.local.UserResponse
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterViewModel
+import com.c22027.nyoombang.ui.donation.DonationActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var binding: ActivityLoginBinding
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,8 +98,9 @@ private fun login(response: UserResponse){
             if (user.password.equals(password)) {
                 sharedPreferencesHelper.prefStatus = true
                 sharedPreferencesHelper.prefLevel = user.role
+                sharedPreferencesHelper.prefUid = user.user_id
                 if (user.role.equals("User")) {
-                    intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    intent = Intent(this@LoginActivity, DonationActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else if (user.role.equals("Community")) {
@@ -130,52 +131,7 @@ private fun login(response: UserResponse){
             }
 
 
-//        val query: Query = database.child("UsersProfile").orderByChild("email").equalTo(email)
-//        query.addListenerForSingleValueEvent(object : ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    for (item in snapshot.children) {
-//                        val user = item.getValue<UserDataClass>()
-//                        if (user != null) {
-//                            if (user.password.equals(password)) {
-//                                sharedPreferencesHelper.prefStatus = true
-//                                sharedPreferencesHelper.prefLevel = user.role
-//                                if (user.role.equals("User")) {
-//                                    intent = Intent(this@LoginActivity, MainActivity::class.java)
-//                                    startActivity(intent)
-//                                    finish()
-//                                } else if(user.role.equals("Community")){
-//                                    intent =
-//                                        Intent(this@LoginActivity, DashboardActivity::class.java)
-//                                    startActivity(intent)
-//                                    finish()
-//                                }
-//                            } else {
-//                                Toast.makeText(
-//                                    this@LoginActivity,
-//                                    "Kata sandi salah masukan kembali",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
-//                        } else {
-//                            Toast.makeText(
-//                                this@LoginActivity,
-//                                "Email Belum terdaftar",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(
-//                    this@LoginActivity,
-//                    error.message,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//
-//        })
+
 
 
 
@@ -190,7 +146,7 @@ private fun login(response: UserResponse){
     override fun onStart() {
         super.onStart()
         if(sharedPreferencesHelper.prefLevel.equals("User")){
-            intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent = Intent(this@LoginActivity, DonationActivity::class.java)
             startActivity(intent)
             finish()
         }

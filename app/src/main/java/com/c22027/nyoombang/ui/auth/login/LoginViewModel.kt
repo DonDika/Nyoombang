@@ -11,9 +11,6 @@ import com.c22027.nyoombang.repository.AppsRepositoryImpl
 class LoginViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()) :ViewModel() {
 
 
-    private val _userLiveData = MutableLiveData<List<UserDataClass>>()
-    val userLiveData: LiveData<List<UserDataClass>> = _userLiveData
-
 
     fun loginUsingLiveData(email: String,password: String) : LiveData<UserResponse>{
         return repository.login(email, password)

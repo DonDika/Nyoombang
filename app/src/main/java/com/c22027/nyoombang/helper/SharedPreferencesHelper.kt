@@ -5,11 +5,13 @@ import android.content.*
 class SharedPreferencesHelper(context: Context) {
 
     private val PREF_NAME = "sharedpref"
-    private lateinit var sharedPreferences: SharedPreferences
 
 
 
     private val preferences: SharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+    var prefUid : String?
+    get() = preferences.getString(Constant.PREF_UID,"")
+    set(value) = preferences.edit().putString(Constant.PREF_UID,value).apply()
 
     var prefStatus: Boolean
     get() = preferences.getBoolean(Constant.PREF_IS_LOGIN,false)
