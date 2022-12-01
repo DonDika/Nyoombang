@@ -1,12 +1,18 @@
 package com.c22027.nyoombang.ui.auth.register
 
+
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.c22027.nyoombang.R
+import com.c22027.nyoombang.repository.AppsRepositoryImpl
+import com.google.firebase.auth.FirebaseUser
 
-class RegisterViewModel : ViewModel(){
+class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()): ViewModel(){
+
+
+    val firebaseData:MutableLiveData<FirebaseUser> = repository.firebaseUserData
+    val toastObserverMessage: MutableLiveData<String> = repository.toastObserverMessage
 
 
     private val _role = MutableLiveData<String?>()
@@ -31,19 +37,28 @@ class RegisterViewModel : ViewModel(){
     val password: LiveData<String> = _password
 
     private val _confirmPassword = MutableLiveData<String>()
-    val confirmPassowrd: LiveData<String> = _confirmPassword
+
+    val confirmPassword: LiveData<String> = _confirmPassword
+
+
+
 
     init {
         _btnRegister.value = false
         _role.value = ""
     }
 
+    fun register(email:String,password: String)= repository.register(email, password)
+
+    fun addUser(email: String,password: String,role:String, name: String) = repository.addUser(email,password,role,name)
+
+
+
     fun stateCheckBtnRegister(){
         _btnRegister.value = (_name.value.toString().isNotBlank() && _password.value.toString() == _confirmPassword.value.toString()
                 && _username.value.toString().isNotBlank() && _btnCheck.value == true && Patterns.EMAIL_ADDRESS.matcher(_email.value.toString()).matches()
                 && _role.value.toString().isNotBlank())
     }
-
     fun stateCheckbox(state : Boolean){
         _btnCheck.value = state
     }
@@ -94,3 +109,4 @@ class RegisterViewModel : ViewModel(){
     }
 
 }
+

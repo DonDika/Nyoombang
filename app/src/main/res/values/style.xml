@@ -13,7 +13,11 @@
         <item name="colorOnSurface">@color/color1</item>
     </style>
 
+<<<<<<< HEAD
+    <!--    checkbox-->
+=======
 <!--    checkbox-->
+>>>>>>> 5c8f13857dceba08d5fe19876f67464756b7127a
     <style name="Theme.App" parent="Theme.MaterialComponents">
         <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
     </style>
@@ -27,12 +31,20 @@
         <item name="colorSecondary">@color/color1</item>
     </style>
 
+<<<<<<< HEAD
+    <!--    button-->
+=======
 <!--    button-->
+>>>>>>> 5c8f13857dceba08d5fe19876f67464756b7127a
     <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="backgroundTint">@color/mtrl_btn_color_state</item>
     </style>
 
+<<<<<<< HEAD
+    <!--    text-->
+=======
 <!--    text-->
+>>>>>>> 5c8f13857dceba08d5fe19876f67464756b7127a
     <style name="Text">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">12sp</item>
@@ -73,6 +85,12 @@
         <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/color2</item>
+    </style>
 
+    <style name="TextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
 </resources>
