@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/mtrl_edt_color_state</item>
+        <item name="boxStrokeWidth">3dp</item>
+    </style>
 
+    <style name="TextInputDropDownLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/mtrl_edt_color_state</item>
+        <item name="boxStrokeWidth">3dp</item>
+        <item name="endIconTint">@color/color1</item>
+        <item name="colorOnSurface">@color/color1</item>
+    </style>
+
+<!--    checkbox-->
+    <style name="Theme.App" parent="Theme.MaterialComponents">
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
+    </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.CheckBox</item>
+    </style>
+
+    <style name="ThemeOverlay.App.CheckBox" parent="">
+        <item name="colorOnSurface">@color/color1</item>
+        <item name="colorSecondary">@color/color1</item>
+    </style>
+
+<!--    button-->
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/mtrl_btn_color_state</item>
+    </style>
+
+<!--    text-->
     <style name="Text">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">12sp</item>
@@ -22,8 +53,6 @@
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">14sp</item>
     </style>
-
-
 
     <style name="Text.Title1">
         <item name="fontFamily">@font/poppins_bold</item>
