@@ -15,7 +15,7 @@
     <string name="agreement">By signing up, you agree with our terms and services</string>
     <string name="register">Register</string>
 
-    <!--Preview page-->
+    <!--Preview.kt page-->
     <string name="johny">JOHNY KENA SLENGKAT</string>
     <string name="terkumpul">Terkumpul</string>
     <string name="total_terkumpul">99,999,999</string>
@@ -29,7 +29,6 @@
     <string name="profile">Profile</string>
     <string name="history">History</string>
     <string name="log_out">Log Out</string>
-
 
 
 </resources>
