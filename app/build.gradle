@@ -87,6 +87,9 @@ dependencies {
     def LayConst = "2.1.4"
     implementation "androidx.constraintlayout:constraintlayout:$LayConst"
 
+    // payment gateway midtrans
+    implementation 'com.midtrans:uikit:1.27.0-SANDBOX'
+
 
 
 }

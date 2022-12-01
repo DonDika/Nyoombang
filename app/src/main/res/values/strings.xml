@@ -15,7 +15,7 @@
     <string name="agreement">By signing up, you agree with our terms and services</string>
     <string name="register">Register</string>
 
-    <!--Preview page-->
+    <!--Preview.kt page-->
     <string name="johny">JOHNY KENA SLENGKAT</string>
     <string name="terkumpul">Terkumpul</string>
     <string name="total_terkumpul">99,999,999</string>
@@ -36,7 +36,6 @@
     <string name="OnBoarding_3">Begitu pula dengan kemajuan teknologi saat ini dimana semua informasi sudah bisa diterima secara real time terhadap semua kejadian maupun kegiatan yang sedang berlangsung, pada Nyoombang "community" sebagai penyedia dana atau kegiatan dan "User" sebagai kalian yang ingin menjadi pendana bantuaned</string>
     <string name="OnBoarding_4">Maka tujuan Nyoombang adalah sebagai platform bantuan kepada masyarakat untuk membuat ataupun memberikan bantuan dana kepada kegiatan atau bantuan dana kepada yang membutuhkan dengan cepat</string>
     <string name="title_activity_on_boarding">OnBoardingActivity</string>
-
 
     <!--    &lt;!&ndash; Strings used for fragments for navigation &ndash;&gt;-->
     <!--    <string name="first_fragment_label">First Fragment</string>-->
@@ -60,5 +59,4 @@
     <string name="date_picker">--/--/--</string>
     <string name="btn_add">Add</string>
     <string name="img_splashscreen">splashScreen</string>
-
 </resources>
