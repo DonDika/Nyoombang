@@ -1,22 +1,20 @@
 package com.c22027.nyoombang.ui.auth.register
 
-import android.util.Log
+
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.c22027.nyoombang.data.local.UserDataClass
 import com.c22027.nyoombang.repository.AppsRepositoryImpl
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()): ViewModel(){
 
 
     val firebaseData:MutableLiveData<FirebaseUser> = repository.firebaseUserData
     val toastObserverMessage: MutableLiveData<String> = repository.toastObserverMessage
+
+
     private val _role = MutableLiveData<String?>()
     val role: LiveData<String?> = _role
 
@@ -39,15 +37,21 @@ class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsReposit
     val password: LiveData<String> = _password
 
     private val _confirmPassword = MutableLiveData<String>()
+
     val confirmPassword: LiveData<String> = _confirmPassword
+
+
+
 
     init {
         _btnRegister.value = false
         _role.value = ""
     }
+
     fun register(email:String,password: String)= repository.register(email, password)
 
     fun addUser(email: String,password: String,role:String, name: String) = repository.addUser(email,password,role,name)
+
 
 
     fun stateCheckBtnRegister(){
@@ -55,10 +59,6 @@ class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsReposit
                 && _username.value.toString().isNotBlank() && _btnCheck.value == true && Patterns.EMAIL_ADDRESS.matcher(_email.value.toString()).matches()
                 && _role.value.toString().isNotBlank())
     }
-
-
-
-
     fun stateCheckbox(state : Boolean){
         _btnCheck.value = state
     }
@@ -109,3 +109,4 @@ class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsReposit
     }
 
 }
+

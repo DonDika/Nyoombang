@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.ui.auth.register
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -20,20 +21,26 @@ import com.c22027.nyoombang.ui.dashboard.DashboardActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    lateinit var ref: DatabaseReference
+
     private val registerViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         sharedPreferencesHelper = SharedPreferencesHelper(this)
         registerViewModel.toastObserverMessage.observe(this){
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
@@ -79,6 +86,8 @@ class RegisterActivity : AppCompatActivity() {
         init()
 
 
+
+        init()
     }
 
     private fun init(){
@@ -88,13 +97,17 @@ class RegisterActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, R.layout.list_item, items)
 
         auth = FirebaseAuth.getInstance()
-
+        ref = FirebaseDatabase.getInstance().getReference("USERS")
         ( binding.edtDropdownInputRole as? AutoCompleteTextView)?.setAdapter(adapter)
 
         with(binding){
 
             btnRegister.setOnClickListener {
+
                 register()
+
+                //condition-already-enabled
+
             }
 
             (edtDropdownInputRole).onItemClickListener =
@@ -177,6 +190,7 @@ class RegisterActivity : AppCompatActivity() {
             })
         }
     }
+
 
     private fun register(){
         val email = binding.edtEmail.text.toString()
