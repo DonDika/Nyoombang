@@ -1,8 +1,8 @@
 package com.c22027.nyoombang.ui.profile.community
 
 import androidx.lifecycle.ViewModel
-import com.c22027.nyoombang.data.local.User
+import com.c22027.nyoombang.data.remote.repository.AppsRepositoryImpl
 
-class CommunityProfileViewModel : ViewModel() {
-    fun getCommunity() = User.community
+class CommunityProfileViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()) : ViewModel() {
+    fun getCommunity(id: String) = repository.getUser(id)
 }
