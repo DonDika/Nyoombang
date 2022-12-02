@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.data.local.PreferenceManager
 import com.c22027.nyoombang.databinding.ActivityPaymentBinding
-import com.c22027.nyoombang.utils.Utilization
+import com.c22027.nyoombang.utils.MERCHANT_BASE_CHECKOUT_URL
+import com.c22027.nyoombang.utils.MERCHANT_CLIENT_KEY
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
@@ -33,8 +33,8 @@ class PaymentActivity : AppCompatActivity(), TransactionFinishedCallback {
 
     //DONE
     private fun initMidtransSdk() {
-        val clientKey: String = Utilization.MERCHANT_CLIENT_KEY
-        val baseUrl: String = Utilization.MERCHANT_BASE_CHECKOUT_URL
+        val clientKey: String = MERCHANT_CLIENT_KEY
+        val baseUrl: String = MERCHANT_BASE_CHECKOUT_URL
         val sdkUIFlowBuilder: SdkUIFlowBuilder = SdkUIFlowBuilder.init()
             .setClientKey(clientKey)
             .setContext(this)
