@@ -3,9 +3,10 @@ package com.c22027.nyoombang.ui.dashboard
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.c22027.nyoombang.R
+import android.util.Log
+import androidx.activity.viewModels
 import com.c22027.nyoombang.data.model.EventDataClass
-import com.c22027.nyoombang.databinding.ActivityDashboardBinding
+import com.c22027.nyoombang.data.model.EventResponse
 import com.c22027.nyoombang.databinding.ActivityDashboardCommunityBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
@@ -17,13 +18,13 @@ class DashboardCommunity : AppCompatActivity() {
     private lateinit var reference: DatabaseReference
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var eventAdapter: EventAdapter
+    private val viewmodel by viewModels<DashboardViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardCommunityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPreferencesHelper = SharedPreferencesHelper(this)
         reference = FirebaseDatabase.getInstance().getReference("Event")
-
         setupListener()
 
         setupAdapter()
@@ -55,30 +56,33 @@ class DashboardCommunity : AppCompatActivity() {
     }
 
     private fun getEvent() {
-        val event: ArrayList<EventDataClass> = arrayListOf()
-        reference.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val result = task.result
-                result?.let {
-                    it.children.map { snapshot ->
-                        val eventData = EventDataClass(
-                            snapshot.ref.key,
-                            snapshot.child("user_id").value.toString(),
-                            snapshot.child("eventName").value.toString(),
-                            snapshot.child("eventPicture").value.toString(),
-                            snapshot.child("eventDescription").value.toString(),
-                            snapshot.child("endOfDate").value.toString(),
-                            snapshot.child("totalAmount").value.toString().toInt()
-                        )
-                        event.add(eventData)
+        viewmodel.getEventCommunity(sharedPreferencesHelper.prefUid.toString()).observe(this){
+            getEventForCommunity(it)
+        }
+    }
 
-                    }
-                }
+    private fun getEventForCommunity(response: EventResponse) {
+        val events : ArrayList<EventDataClass> = arrayListOf()
+        response.items?.let { event ->
+            event.forEach {
+                val eventData = EventDataClass(
+                    it.event_id,
+                    it.user_id,
+                    it.eventName,
+                    it.eventPicture,
+                    it.eventDescription,
+                    it.endOfDate,
+                    it.totalAmount
+                )
+
+                Log.d("picture",it.eventPicture.toString())
+                events.add(eventData)
 
             }
-            eventAdapter.setData(event)
 
         }
+        eventAdapter.setData(events)
+
 
     }
 }

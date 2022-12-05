@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.community.CommunityProfileActivity">
+    tools:context=".ui.profile.community.EditCommunityActivity">
+
     <TextView
-        android:id="@+id/edit"
-        style="@style/Text.Description2"
+        android:id="@+id/btn_save"
+        style="@style/Text.Description3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Edit"
-        android:textColor="@color/black"
+        android:text="Save"
         app:layout_constraintBottom_toTopOf="@+id/civ_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,16 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tv_username"
-        style="@style/Text.Title4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/civ_profile"
-        tools:text="@tools:sample/first_names" />
 
     <EditText
         android:id="@+id/edt_name"
@@ -49,7 +40,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/profile_text_background"
-        android:enabled="false"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingLeft="13dp"
@@ -59,11 +49,11 @@
         android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username"
-        tools:text="@tools:sample/full_names" />
+        app:layout_constraintTop_toBottomOf="@+id/civ_profile"
+        android:hint="@string/name" />
 
     <EditText
-        android:id="@+id/edt_email"
+        android:id="@+id/edt_phoneNumber"
         style="@style/Text.Description2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -71,8 +61,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/profile_text_background"
-        android:enabled="false"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:minHeight="48dp"
         android:paddingLeft="13dp"
         android:paddingRight="13dp"
@@ -82,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_name"
-        tools:text="@tools:sample/full_names" />
+        android:hint="Phone Number" />
 
     <EditText
         android:id="@+id/edt_description"
@@ -93,7 +82,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/profile_text_background"
-        android:enabled="false"
         android:gravity="top|start"
         android:inputType="textMultiLine"
         android:lines="8"
@@ -108,36 +96,69 @@
         android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_email"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_phoneNumber"
+        android:hint="Insert Your Community Description" />
 
-    <ImageButton
-        android:id="@+id/ib_facebook"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/icon_facebook"
+    <EditText
+        android:id="@+id/edt_ig"
+        style="@style/Text.Description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/profile_text_background"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_description" />
-
-    <ImageButton
-        android:id="@+id/ib_twitter"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/icon_twitter"
-        app:layout_constraintEnd_toStartOf="@+id/ib_facebook"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_description" />
-
-    <ImageButton
-        android:id="@+id/ib_instagram"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/icon_instagram"
+        app:layout_constraintTop_toBottomOf="@+id/edt_description"
+        android:hint="Insert Your Community Instagram" />
+    <EditText
+        android:id="@+id/edt_fb"
+        style="@style/Text.Description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/profile_text_background"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ib_facebook"
-        app:layout_constraintTop_toBottomOf="@+id/edt_description" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_ig"
+        android:hint="Insert Your Community facebook" />
+
+    <EditText
+        android:id="@+id/edt_twitter"
+        style="@style/Text.Description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/profile_text_background"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:textColor="@color/color3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_fb"
+        android:hint="Insert Your Community Twitter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

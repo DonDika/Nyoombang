@@ -3,8 +3,9 @@ package com.c22027.nyoombang.data.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.c22027.nyoombang.data.local.UserDataClass
-import com.c22027.nyoombang.data.local.UserResponse
+import com.c22027.nyoombang.data.model.UserDataClass
+import com.c22027.nyoombang.data.model.UserResponse
+
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 

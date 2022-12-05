@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.ui.profile.user
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityUserProfileBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.profile.community.EditCommunityActivity
 
 //import com.c22027.nyoombang.ui.adapter.DonationListAdapter
 
@@ -27,6 +29,11 @@ class UserProfileActivity : AppCompatActivity() {
         preferences = SharedPreferencesHelper(this)
 
         setupView()
+        binding.edit.setOnClickListener {
+            intent  = Intent(this@UserProfileActivity, EditUserActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupView() {

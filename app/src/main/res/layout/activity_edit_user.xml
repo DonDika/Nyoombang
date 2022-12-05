@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.donation.EditDonationActivity"
-    >
+    tools:context=".ui.profile.user.EditUserActivity">
+
+    <TextView
+        android:id="@+id/btn_save"
+        style="@style/Text.Description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/circleImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -40,19 +50,31 @@
             style="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/edit"
-        style="@style/Text.Description2"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_phone_number"
+        style="@style/TextInputLayout"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:hint="Phone Number"
+        android:textColorHint="@color/color1"
+        app:boxStrokeColor="@color/mtrl_edt_color_state"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="355dp" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_phoneNumber"
+            style="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
