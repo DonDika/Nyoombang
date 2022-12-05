@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-
+import com.c22027.nyoombang.data.model.UserTransaction
 import com.c22027.nyoombang.databinding.DonationItemLayoutBinding
 import com.c22027.nyoombang.utils.Utilization
 import java.util.*

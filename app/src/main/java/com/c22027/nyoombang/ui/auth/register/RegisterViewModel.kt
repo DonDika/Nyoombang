@@ -5,13 +5,13 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.c22027.nyoombang.data.model.UserResponse
 import com.c22027.nyoombang.repository.AppsRepositoryImpl
 import com.google.firebase.auth.FirebaseUser
 
 class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsRepositoryImpl()): ViewModel(){
 
 
-    val firebaseData:MutableLiveData<FirebaseUser> = repository.firebaseUserData
     val toastObserverMessage: MutableLiveData<String> = repository.toastObserverMessage
 
 
@@ -48,11 +48,10 @@ class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsReposit
         _role.value = ""
     }
 
-    fun register(email:String,password: String)= repository.register(email, password)
 
-    fun addUser(email: String,password: String,role:String, name: String) = repository.addUser(email,password,role,name)
-
-
+    fun register(email: String): LiveData<UserResponse>{
+       return repository.register(email)
+    }
 
     fun stateCheckBtnRegister(){
         _btnRegister.value = (_name.value.toString().isNotBlank() && _password.value.toString() == _confirmPassword.value.toString()

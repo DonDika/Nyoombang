@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.ui.profile.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -24,6 +25,11 @@ class CommunityProfileActivity : AppCompatActivity() {
         preferences = SharedPreferencesHelper(this)
 
         setupView()
+        binding.edit.setOnClickListener {
+            intent  = Intent(this@CommunityProfileActivity,EditCommunityActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupView() {

@@ -16,19 +16,18 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
-            android:name=".detailsEvent.DetailsEventActivity"
+            android:name=".ui.profile.user.EditUserActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.donation.EditDonationActivity"
+            android:name=".ui.profile.community.EditCommunityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detailsEvent.DetailsEventActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -84,25 +83,27 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
+
+        <!--<activity
             android:name=".ui.donation.DonationHistoryActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.donation.DonationActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+        </activity>-->
+
         <activity
             android:name=".ui.auth.login.LoginActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>
