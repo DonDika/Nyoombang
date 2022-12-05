@@ -11,22 +11,32 @@ import androidx.activity.viewModels
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Toast
+import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityAddEventBinding
-import com.c22027.nyoombang.utils.uriToFile
-import java.io.File
+import com.c22027.nyoombang.helper.SharedPreferencesHelper
+
+import com.c22027.nyoombang.utils.Utilization.uriToFile
+
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 class AddEventActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEventBinding
     private val addEventViewModel by viewModels<AddEventViewModel>()
-    private var getFile: File? = null
+    private var getFile: Uri? = null
+    private lateinit var reference: DatabaseReference
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        sharedPreferencesHelper= SharedPreferencesHelper(this)
+        reference = FirebaseDatabase.getInstance().getReference("Event")
         init()
     }
 
@@ -48,6 +58,9 @@ class AddEventActivity : AppCompatActivity() {
 
             imgPreviewImageView.setOnClickListener {
                 startGallery()
+            }
+            btnAdd.setOnClickListener{
+                addEvent()
             }
 
             edtName.addTextChangedListener(object : TextWatcher {
@@ -103,14 +116,54 @@ class AddEventActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
-
+            getFile = selectedImg
             val myFile = uriToFile(selectedImg, this@AddEventActivity)
-
-            getFile = myFile
-
             binding.imgPreviewImageView.setImageURI(selectedImg)
-            addEventViewModel.statePhoto(getFile)
+            addEventViewModel.statePhoto(myFile)
             Log.d("test","$getFile dan ${addEventViewModel.photo.value.toString()}")
+        }
+    }
+
+    private fun addEvent() {
+        binding.apply {
+            val userId = sharedPreferencesHelper.prefUid
+            val eventName = edtName.text.toString()
+            val descriptionEvent = edtDescription.text.toString()
+            val endOfDate = addEventViewModel.date.value.toString()
+
+
+            val uploadRef =
+                FirebaseStorage.getInstance().getReference("/EventPicture/${getFile?.lastPathSegment}")
+            uploadRef.putFile(getFile!!).addOnSuccessListener {
+                uploadRef.downloadUrl.addOnSuccessListener {
+                    val eventDataClass = EventDataClass(
+                        event_id = reference.push().key.toString(),
+                        userId,
+                        eventName,
+                        it.toString(),
+                        descriptionEvent,
+                        endOfDate,
+                        0
+                    )
+
+                    reference.child(eventDataClass.event_id.toString()).setValue(eventDataClass)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                this@AddEventActivity,
+                                "Berhasil di Menambahkan event",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+
+            }.addOnFailureListener {
+                Toast.makeText(this@AddEventActivity, it.message.toString(), Toast.LENGTH_SHORT)
+                    .show()
+                Log.d("failed", "failed${getFile?.path} ")
+                Log.d("failed", it.message.toString())
+
+            }
+
         }
     }
 

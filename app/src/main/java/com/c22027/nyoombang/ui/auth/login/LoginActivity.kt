@@ -9,18 +9,12 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.c22027.nyoombang.MainActivity
-import com.c22027.nyoombang.data.local.UserDataClass
 import com.c22027.nyoombang.databinding.ActivityLoginBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.c22027.nyoombang.ui.dashboard.DashboardActivity
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.data.local.UserResponse
+import com.c22027.nyoombang.data.model.UserResponse
+import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
-import com.c22027.nyoombang.ui.auth.register.RegisterViewModel
 import com.c22027.nyoombang.ui.donation.DonationActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -105,7 +99,7 @@ private fun login(response: UserResponse){
                     finish()
                 } else if (user.role.equals("Community")) {
                     intent =
-                        Intent(this@LoginActivity, DashboardActivity::class.java)
+                        Intent(this@LoginActivity, AddEventActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -152,7 +146,7 @@ private fun login(response: UserResponse){
         }
         else if(sharedPreferencesHelper.prefLevel.equals("Community")){
             intent =
-                Intent(this@LoginActivity, DashboardActivity::class.java)
+                Intent(this@LoginActivity, AddEventActivity::class.java)
             startActivity(intent)
             finish()
         }

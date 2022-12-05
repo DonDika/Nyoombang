@@ -2,14 +2,10 @@ package com.c22027.nyoombang.ui.donation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.c22027.nyoombang.data.local.UserDataClass
-import com.c22027.nyoombang.data.local.UserResponse
 import com.c22027.nyoombang.databinding.ActivityDonationBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 

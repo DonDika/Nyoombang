@@ -36,7 +36,7 @@ class AddEventViewModel : ViewModel() {
         _description.value = value
     }
 
-    fun statePhoto(value : File?){
+    fun statePhoto(value: File){
         _photo.value = value
     }
 

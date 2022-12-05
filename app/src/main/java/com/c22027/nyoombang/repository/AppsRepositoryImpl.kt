@@ -2,8 +2,8 @@ package com.c22027.nyoombang.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.c22027.nyoombang.data.local.UserDataClass
-import com.c22027.nyoombang.data.local.UserResponse
+import com.c22027.nyoombang.data.model.UserDataClass
+import com.c22027.nyoombang.data.model.UserResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -70,6 +70,7 @@ class AppsRepositoryImpl {
             password,
             role,
             name,
+            "",
             "",
             "",
             "",
