@@ -15,7 +15,9 @@ import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.model.UserResponse
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
-import com.c22027.nyoombang.ui.donation.DonationActivity
+import com.c22027.nyoombang.ui.dashboard.DashboardActivity
+import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
+import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
@@ -94,12 +96,12 @@ private fun login(response: UserResponse){
                 sharedPreferencesHelper.prefLevel = user.role
                 sharedPreferencesHelper.prefUid = user.user_id
                 if (user.role.equals("User")) {
-                    intent = Intent(this@LoginActivity, DonationActivity::class.java)
+                    intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else if (user.role.equals("Community")) {
                     intent =
-                        Intent(this@LoginActivity, AddEventActivity::class.java)
+                        Intent(this@LoginActivity, CommunityProfileActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -117,17 +119,11 @@ private fun login(response: UserResponse){
     private fun loginUser() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-
         loginViewModel.loginUsingLiveData(email, password).observe(this) {
            login(it)
 
                 }
             }
-
-
-
-
-
 
     private fun setButtonEnable() {
         binding.apply {
@@ -140,7 +136,7 @@ private fun login(response: UserResponse){
     override fun onStart() {
         super.onStart()
         if(sharedPreferencesHelper.prefLevel.equals("User")){
-            intent = Intent(this@LoginActivity, DonationActivity::class.java)
+            intent = Intent(this@LoginActivity, DashboardActivity::class.java)
             startActivity(intent)
             finish()
         }

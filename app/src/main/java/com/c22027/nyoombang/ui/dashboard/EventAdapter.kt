@@ -1,6 +1,7 @@
 package com.c22027.nyoombang.ui.dashboard
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class EventAdapter (
             Glide.with(context).load(campaign.eventPicture).into(circleImageView)
             tvCampaignName.text = campaign.eventName
             tvAmountCampaign.text = campaign.totalAmount.toString()
+            Log.d("eventError",campaign.eventPicture.toString())
 
             container.setOnClickListener {
                 listener?.onClick(campaign)
