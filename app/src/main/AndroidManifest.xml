@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,17 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nyoombang"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".DetailsEventActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.donation.EditDonationActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.dashboard.DashboardActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="false">
@@ -62,7 +71,6 @@
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:exported="false"
-            android:label="@string/title_activity_on_boarding"
             android:theme="@style/Theme.Nyoombang.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
@@ -87,26 +95,19 @@
         </activity>
         <activity
             android:name=".ui.auth.login.LoginActivity"
-
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.payment.PaymentActivity"
-
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
     </application>
 
 </manifest>

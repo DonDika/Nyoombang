@@ -14,10 +14,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.c22027.nyoombang.MainActivity
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.data.local.UserDataClass
+import com.c22027.nyoombang.data.model.UserDataClass
 import com.c22027.nyoombang.databinding.ActivityRegisterBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.c22027.nyoombang.ui.dashboard.DashboardActivity
+import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
@@ -45,6 +45,7 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel.toastObserverMessage.observe(this){
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         }
+
         registerViewModel.firebaseData.observe(this) {
             if (it != null) {
                 val email = it.email.toString()
@@ -61,13 +62,14 @@ class RegisterActivity : AppCompatActivity() {
                                 if (user != null) {
                                     sharedPreferencesHelper.prefStatus = true
                                     sharedPreferencesHelper.prefLevel = user.role
+                                    sharedPreferencesHelper.prefUid = user.user_id
                                     if (user.role.equals("User")) {
                                         intent = Intent(this@RegisterActivity, MainActivity::class.java)
                                         startActivity(intent)
                                         finish()
                                     } else{
                                         intent =
-                                            Intent(this@RegisterActivity, DashboardActivity::class.java)
+                                            Intent(this@RegisterActivity, AddEventActivity::class.java)
                                         startActivity(intent)
                                         finish()
                                     }

@@ -15,7 +15,7 @@ class ApiConfig {
                 writeTimeout(20, TimeUnit.SECONDS)
                 connectTimeout(20, TimeUnit.SECONDS)
             }
-            .addInterceptor(BasicAuthInterceptor(Utilization.AUTH_TOKEN,""))
+            .addInterceptor(BasicAuthInterceptor(Utilization.TOKEN,""))
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.sandbox.midtrans.com/")

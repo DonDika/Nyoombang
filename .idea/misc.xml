@@ -4,18 +4,33 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Nyoombang/app/src/main/res/drawable-v24/ic_baseline_error_24.xml" value="0.3675" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.276" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/bg_button.xml" value="0.3665" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/bg_button_disable.xml" value="0.3675" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_add.xml" value="0.276" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.276" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.3675" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.3675" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.3675" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_launcher_background.xml" value="0.276" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/icon_facebook.xml" value="0.276" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/icon_google.xml" value="0.276" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_add_event.xml" value="0.23233695652173914" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_dashboard.xml" value="0.33605072463768115" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_dashboard_community.xml" value="0.33605072463768115" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_detail.xml" value="0.33605072463768115" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_details_event.xml" value="0.33559782608695654" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_donation.xml" value="0.25" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_donation_history.xml" value="0.22" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_edit_donation.xml" value="0.34193840579710144" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_home.xml" value="0.33605072463768115" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_login.xml" value="0.35144927536231885" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_main.xml" value="0.34193840579710144" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_payment.xml" value="0.18489583333333334" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_register.xml" value="0.34193840579710144" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_splash.xml" value="0.34193840579710144" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/donation_list.xml" value="0.22" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/items_campaign.xml" value="0.33605072463768115" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/list_item.xml" value="1.1" />
       </map>
     </option>

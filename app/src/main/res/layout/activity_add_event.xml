@@ -23,7 +23,7 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="300dp"
         android:layout_height="80dp"
-        android:hint="@string/name"
+        android:hint="@string/event_name"
         android:layout_marginTop="52dp"
         android:textColorHint="@color/color_text_subtitle"
         app:errorIconDrawable="@drawable/ic_baseline_error_24"
