@@ -42,6 +42,7 @@
 
 
 
+
     <!--    &lt;!&ndash; Strings used for fragments for navigation &ndash;&gt;-->
     <!--    <string name="first_fragment_label">First Fragment</string>-->
     <!--    <string name="second_fragment_label">Second Fragment</string>-->
@@ -70,10 +71,10 @@
     <string name="total_donation">Rp.xxx.xxx</string>
     <string name="status">Status</string>
 
-
     <string name="plc_preview_image">preview_image</string>
     <string name="edt_hint_description">description</string>
     <string name="date_picker">--/--/--</string>
     <string name="btn_add">Add</string>
     <string name="img_splashscreen">splashScreen</string>
+    <string name="event_name">Event Name</string>
 </resources>

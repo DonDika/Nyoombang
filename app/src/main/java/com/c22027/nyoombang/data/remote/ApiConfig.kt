@@ -1,6 +1,6 @@
 package com.c22027.nyoombang.data.remote
 
-import com.c22027.nyoombang.utils.AUTH_TOKEN
+import com.c22027.nyoombang.utils.Utilization
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +15,7 @@ class ApiConfig {
                 writeTimeout(20, TimeUnit.SECONDS)
                 connectTimeout(20, TimeUnit.SECONDS)
             }
-            .addInterceptor(BasicAuthInterceptor(AUTH_TOKEN,""))
+            .addInterceptor(BasicAuthInterceptor(Utilization.TOKEN,""))
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.sandbox.midtrans.com/")

@@ -27,6 +27,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -44,7 +45,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
@@ -52,6 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -86,7 +87,11 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.1.0'
 
+    //desugaring
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.5"
+    
     //ConstrainLayout
     def LayConst = "2.1.4"
     implementation "androidx.constraintlayout:constraintlayout:$LayConst"

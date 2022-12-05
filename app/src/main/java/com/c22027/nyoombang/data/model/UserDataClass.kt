@@ -1,4 +1,6 @@
-package com.c22027.nyoombang.data.local
+package com.c22027.nyoombang.data.model
+
+import android.net.Uri
 
 
 data class UserDataClass (
@@ -12,10 +14,6 @@ data class UserDataClass (
     val facebook: String? = null,
     val instagram: String? = null,
     val picture: String? = null,
+    val phoneNumber: String? = null
 )
 
-data class UpdateUserData(
-    val email: String,
-    val name: String,
-    val picture: String
-)

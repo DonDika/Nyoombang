@@ -1,6 +1,6 @@
 package com.c22027.nyoombang.ui.donation
 
-import android.Manifest
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,7 @@ import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -87,7 +88,7 @@ class EditDonationActivity : AppCompatActivity() {
             uploadRef.putFile(filePath!!).addOnSuccessListener {
                 uploadRef.downloadUrl.addOnSuccessListener {
                     val updateUser = mapOf<String,String>(
-                        "total_amoun" to name,
+                        "name" to name,
                         "picture" to it.toString()
                     )
 
