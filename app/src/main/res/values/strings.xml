@@ -38,6 +38,9 @@
     <string name="OnBoarding_2">Semua masyarakat sudah bisa menabung dan juga memberi jumlah nominal keuangan kepada orang lain atau kebutuhan lainnya dimana pun dan kapan pun. maka Nyoombang memberikan cara pemberian dana kepada seseorang dimana kita bisa memberikan nominal sesuai yang kita inginkan.</string>
     <string name="OnBoarding_3">Begitu pula dengan kemajuan teknologi saat ini dimana semua informasi sudah bisa diterima secara real time terhadap semua kejadian maupun kegiatan yang sedang berlangsung, pada Nyoombang "community" sebagai penyedia dana atau kegiatan dan "User" sebagai kalian yang ingin menjadi pendana bantuaned</string>
     <string name="OnBoarding_4">Maka tujuan Nyoombang adalah sebagai platform bantuan kepada masyarakat untuk membuat ataupun memberikan bantuan dana kepada kegiatan atau bantuan dana kepada yang membutuhkan dengan cepat</string>
+    <string name="title_activity_on_boarding">OnBoardingActivity</string>
+
+
 
 
     <!--    &lt;!&ndash; Strings used for fragments for navigation &ndash;&gt;-->
@@ -67,6 +70,7 @@
     <string name="time">hh:mm:ss</string>
     <string name="total_donation">Rp.xxx.xxx</string>
     <string name="status">Status</string>
+
     <string name="plc_preview_image">preview_image</string>
     <string name="edt_hint_description">description</string>
     <string name="date_picker">--/--/--</string>

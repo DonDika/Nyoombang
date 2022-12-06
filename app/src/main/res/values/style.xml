@@ -15,6 +15,7 @@
 
 
 
+    <!--    checkbox-->
     <style name="Theme.App" parent="Theme.MaterialComponents">
         <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
     </style>
@@ -30,12 +31,13 @@
 
 
 
+    <!--    button-->
     <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="backgroundTint">@color/mtrl_btn_color_state</item>
     </style>
 
 
-
+    <!--    text-->
     <style name="Text">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">12sp</item>

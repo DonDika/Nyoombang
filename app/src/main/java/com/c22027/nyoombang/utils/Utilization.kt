@@ -15,12 +15,26 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-import java.text.DecimalFormat
-import java.text.NumberFormat
+
+/*
+//Midtrans
+const val MERCHANT_CLIENT_KEY = "SB-Mid-client-EBHBcEjtZQo548H2"
+const val MERCHANT_BASE_CHECKOUT_URL = "https://dikatech.000webhostapp.com/midtrans.php/"
+const val AUTH_TOKEN = "SB-Mid-server-hUBBoStu1BH4_poDN619HnaT"
+
+//formatting
+fun amountFormat(number: Double): String{
+    val numberFormat: NumberFormat = DecimalFormat("####")
+    return numberFormat.format(number)
+}
+*/
+
 
 object Utilization {
 
