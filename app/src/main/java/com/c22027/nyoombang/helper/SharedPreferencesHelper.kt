@@ -7,7 +7,6 @@ class SharedPreferencesHelper(context: Context) {
     private val PREF_NAME = "sharedpref"
 
 
-
     private val preferences: SharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
     var prefUid : String?
     get() = preferences.getString(Constant.PREF_UID,"")
@@ -21,10 +20,10 @@ class SharedPreferencesHelper(context: Context) {
     get() = preferences.getString(Constant.PREF_LEVEL,"")
     set(value) = preferences.edit().putString(Constant.PREF_LEVEL,value).apply()
 
+
     fun prefClear(){
         preferences.edit().remove(Constant.PREF_IS_LOGIN).apply()
         preferences.edit().remove(Constant.PREF_LEVEL).apply()
-
     }
 
 

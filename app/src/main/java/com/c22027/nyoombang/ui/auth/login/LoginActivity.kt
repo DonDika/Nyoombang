@@ -1,6 +1,7 @@
 package com.c22027.nyoombang.ui.auth.login
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -71,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun validEmail(): String? {
      val emailText = binding.edtEmail.text.toString()
         if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
@@ -78,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
         }
         return null
     }
+
     private fun validPassword(): String? {
         val passwordText = binding.edtPassword.text.toString()
         if (!passwordText.isNullOrEmpty() && passwordText.length < 6){

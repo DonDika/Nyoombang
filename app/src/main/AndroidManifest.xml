@@ -22,13 +22,11 @@
             android:name=".ui.profile.community.EditCommunityActivity"
             android:exported="false" />
         <activity
-            android:name=".detailsEvent.DetailsEventActivity"
+            android:name=".ui.details.DetailsEventActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="true">
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -103,6 +101,19 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!--<activity
+            android:name=".ui.details.DetailsEventActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>-->
 
     </application>
 

@@ -84,9 +84,11 @@ class AppsRepositoryImpl {
         }
         return mutableLiveData
     }
+
     fun getEventCommunity(userId: String):MutableLiveData<EventResponse>{
         val mutableLiveData = MutableLiveData<EventResponse>()
-        database.child("Event").orderByChild("user_id").equalTo(userId).get().addOnCompleteListener {task ->
+        database.child("Event").orderByChild("user_id").equalTo(userId)
+            .get().addOnCompleteListener {task ->
             val response = EventResponse()
             if (task.isSuccessful) {
                 val result = task.result
