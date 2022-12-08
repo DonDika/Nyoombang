@@ -24,7 +24,9 @@ class SharedPreferencesHelper(context: Context) {
     get() =  preferences.getString(Constant.PREF_ORDERID,"")
     set(value) = preferences.edit().putString(Constant.PREF_ORDERID,value).apply()
 
-
+    var prefNewAccess: Boolean
+        get() =  preferences.getBoolean(Constant.PREF_NEW_ACCESS,true)
+        set(value) = preferences.edit().putBoolean(Constant.PREF_NEW_ACCESS,value).apply()
 
     fun prefClear(){
         preferences.edit().remove(Constant.PREF_IS_LOGIN).apply()
