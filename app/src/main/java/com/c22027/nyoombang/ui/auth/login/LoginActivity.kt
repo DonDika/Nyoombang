@@ -139,12 +139,12 @@ class LoginActivity : AppCompatActivity() {
                         sharedPreferencesHelper.prefLevel = it.data["role"].toString()
                         sharedPreferencesHelper.prefUid = it.data["user_id"].toString()
                         if (it.data["role"].toString().equals("User")) {
-                            intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+                            intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else if (it.data["role"].toString().equals("Community")) {
                             intent =
-                                Intent(this@LoginActivity, CommunityProfileActivity::class.java)
+                                Intent(this@LoginActivity, AddEventActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
