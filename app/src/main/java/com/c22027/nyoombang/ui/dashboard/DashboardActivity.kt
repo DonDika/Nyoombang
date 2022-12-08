@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.ui.dashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +9,18 @@ import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.data.model.EventResponse
 import com.c22027.nyoombang.databinding.ActivityDashboardBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.details.DetailsEventActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var reference: DatabaseReference
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var eventAdapter: EventAdapter
+    private val db by lazy { Firebase.firestore}
     private val viewmodel by viewModels<DashboardViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,39 +45,64 @@ class DashboardActivity : AppCompatActivity() {
     private fun setupAdapter() {
         eventAdapter = EventAdapter(this@DashboardActivity,arrayListOf(), object : EventAdapter.AdapterListener {
             override fun onClick(campaign: EventDataClass) {
+                showSelectedEvent(campaign)
 
             }
         })
         binding.rvUsers.adapter =eventAdapter
     }
 
-    private fun getEventForUser(response: EventResponse){
-        val events : ArrayList<EventDataClass> = arrayListOf()
-        response.items?.let { event ->
-            event.forEach {
-                val eventData = EventDataClass(
-                    it.event_id,
-                    it.user_id,
-                    it.eventName,
-                    it.eventPicture,
-                    it.eventDescription,
-                    it.endOfDate,
-                    it.totalAmount
-                )
-
-                Log.d("picture",it.eventPicture.toString())
-                events.add(eventData)
-
-            }
-
-        }
-        eventAdapter.setData(events)
-
+//    private fun getEventForUser(response: EventResponse){
+//        val events : ArrayList<EventDataClass> = arrayListOf()
+//        response.items?.let { event ->
+//            event.forEach {
+//                val eventData = EventDataClass(
+//                    it.event_id,
+//                    it.user_id,
+//                    it.eventName,
+//                    it.eventPicture,
+//                    it.eventDescription,
+//                    it.endOfDate,
+//                    it.totalAmount
+//                )
+//
+//                Log.d("picture",it.eventPicture.toString())
+//                events.add(eventData)
+//
+//            }
+//
+//        }
+//        eventAdapter.setData(events)
+//
+//    }
+    private fun showSelectedEvent(eventDataClass: EventDataClass){
+        intent = Intent(this@DashboardActivity, DetailsEventActivity::class.java)
+        intent.putExtra(DetailsEventActivity.EXTRA_EVENT,eventDataClass.event_id)
+        startActivity(intent)
     }
     private fun getEvent(){
-        viewmodel.getEventUser().observe(this){
-            getEventForUser(it)
-        }
+        val events : ArrayList<EventDataClass> = arrayListOf()
+       db.collection("Event").get().addOnCompleteListener { task ->
+           if (task.isSuccessful){
+               val document = task.result
+               document.forEach {
+                   val eventData = EventDataClass(
+                       it.data["event_id"].toString(),
+                       it.data["user_id"].toString(),
+                       it.data["eventName"].toString(),
+                       it.data["eventPicture"].toString(),
+                       it.data["eventDescription"].toString(),
+                       it.data["endOfDate"].toString(),
+                       it.data["totalAmount"].toString()
+                   )
+                   events.add(eventData)
+
+               }
+           }
+           eventAdapter.setData(events)
+
+       }
+
 
     }
 

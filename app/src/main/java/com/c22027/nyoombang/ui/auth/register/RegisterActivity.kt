@@ -27,14 +27,17 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-
+    private val db by lazy { Firebase.firestore}
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     lateinit var ref: DatabaseReference
+
 
     private val registerViewModel by viewModels<RegisterViewModel>()
 
@@ -68,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
 
             btnRegister.setOnClickListener {
 
-                registerUser()
+                registration()
 
                 //condition-already-enabled
 
@@ -155,60 +158,58 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registration(response: UserResponse){
+    private fun registration(){
         val email = binding.edtEmail.text.toString()
         val phoneNumber = binding.edtPhoneNumber.text.toString()
         val password = binding.edtPassword.text.toString()
         val name = binding.edtName.text.toString()
         val role = binding.edtDropdownInputRole.text.toString()
-        response.items?.let { users ->
-            if (users.isEmpty()) {
-                ref = FirebaseDatabase.getInstance().getReference("UsersProfile")
-                val userId = ref.push().key.toString()
-                val userProfile = UserDataClass(
-                    userId,
-                    email,
-                    phoneNumber,
-                    password,
-                    role,
-                    name,
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-                )
-                ref.child(userId).setValue(userProfile).addOnSuccessListener {
-                    Toast.makeText(this, "Registration Success", Toast.LENGTH_SHORT).show()
-                    intent = Intent(this,LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
+        val key = db.collection("UsersProfile").document().id
+        db.collection("UsersProfile").whereEqualTo("email",email).get().addOnCompleteListener {task ->
 
-                }.addOnFailureListener {
-                    Toast.makeText(this, it.message.toString(), Toast.LENGTH_SHORT).show()
+                if (task.isSuccessful){
+                    val document = task.result
+
+                    if (document != null){
+                        val userProfile = UserDataClass(
+                           key,
+                            email,
+                            phoneNumber,
+                            password,
+                            role,
+                            name,
+                            "",
+                            "",
+                            "",
+                            "",
+                            ""
+                        )
+                        db.collection("UsersProfile").document(key).set(userProfile)
+                        Toast.makeText(this@RegisterActivity,"Registration Success",Toast.LENGTH_SHORT).show()
+                        intent = Intent(this,LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    }
+                    else{
+                        Toast.makeText(this@RegisterActivity,"Email already used ",Toast.LENGTH_SHORT).show()
+
+                    }
+                }
 
                 }
 
-        }else {
-                    Toast.makeText(this, "Email or username Already used", Toast.LENGTH_SHORT)
-                        .show()
 
-                }
 
-        }
+
+
+
 
 
     }
 
 
-    private fun registerUser(){
-        val email = binding.edtEmail.text.toString()
-        registerViewModel.register(email).observe(this){
-            registration(it)
 
-        }
-
-        }
 
     private fun setButton(state : Boolean){
         with(binding){

@@ -12,12 +12,15 @@ import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class DashboardCommunity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardCommunityBinding
     private lateinit var reference: DatabaseReference
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var eventAdapter: EventAdapter
+    private val db by lazy { Firebase.firestore}
     private val viewmodel by viewModels<DashboardViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,33 +59,29 @@ class DashboardCommunity : AppCompatActivity() {
     }
 
     private fun getEvent() {
-        viewmodel.getEventCommunity(sharedPreferencesHelper.prefUid.toString()).observe(this){
-            getEventForCommunity(it)
-        }
-    }
+        val events: ArrayList<EventDataClass> = arrayListOf()
+        db.collection("Event").whereEqualTo("user_id", sharedPreferencesHelper.prefUid.toString()).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                document.forEach {
+                    val eventData = EventDataClass(
+                        it.data["event_id"].toString(),
+                        it.data["user_id"].toString(),
+                        it.data["eventName"].toString(),
+                        it.data["eventPicture"].toString(),
+                        it.data["eventDescription"].toString(),
+                        it.data["endOfDate"].toString(),
+                        it.data["totalAmount"].toString()
+                    )
+                    events.add(eventData)
 
-    private fun getEventForCommunity(response: EventResponse) {
-        val events : ArrayList<EventDataClass> = arrayListOf()
-        response.items?.let { event ->
-            event.forEach {
-                val eventData = EventDataClass(
-                    it.event_id,
-                    it.user_id,
-                    it.eventName,
-                    it.eventPicture,
-                    it.eventDescription,
-                    it.endOfDate,
-                    it.totalAmount
-                )
-
-                Log.d("picture",it.eventPicture.toString())
-                events.add(eventData)
-
+                }
             }
+            eventAdapter.setData(events)
 
         }
-        eventAdapter.setData(events)
-
-
     }
+
+
+
 }

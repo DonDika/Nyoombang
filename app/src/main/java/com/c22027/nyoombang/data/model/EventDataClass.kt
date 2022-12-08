@@ -9,5 +9,5 @@ data class EventDataClass(
     val eventPicture: String? = null,
     val eventDescription: String? = null,
     val endOfDate: String? = null,
-    val totalAmount: Int? = 0
+    val totalAmount: String? = null
 )

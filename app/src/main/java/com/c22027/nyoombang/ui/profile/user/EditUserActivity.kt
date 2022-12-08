@@ -10,8 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.databinding.ActivityEditUserBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_donation.*
 import java.text.SimpleDateFormat
@@ -22,6 +25,7 @@ class EditUserActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var binding: ActivityEditUserBinding
     private var currentDate: String? = null
+    private val db by lazy { Firebase.firestore}
     private var filePath: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,23 +48,36 @@ class EditUserActivity : AppCompatActivity() {
     private fun displayData(){
 
         val user = sharedPreferencesHelper.prefUid.toString()
-        reference.child("UsersProfile").child(user).get().addOnCompleteListener {
-
-            if(it.isSuccessful){
+        db.collection("UsersProfile").document(user).get().addOnCompleteListener { it ->
+            if (it.isSuccessful){
                 val snapshot = it.result
-                val name = snapshot.child("name").value
-                val phoneNumber = snapshot.child("phoneNumber").value
-                val picture = snapshot.child("picture")
+                val name = snapshot.data!!["name"].toString()
+                val phoneNumber = snapshot.data!!["phoneNumber"].toString()
+                val picture = snapshot.data!!["picture"].toString()
 
-                binding.edtName.setText(name.toString())
-                binding.edtPhoneNumber.setText(phoneNumber.toString())
+                binding.edtName.setText(name)
+                binding.edtPhoneNumber.setText(phoneNumber)
                 Glide.with(this).load(picture).into(circleImageView)
-
-
-
             }
         }
     }
+//        reference.data["Usersrofile").data[user).et().addOnCompleteListener {
+//
+//            if(it.isSuccessful){
+//                val snapshot = it.result
+//                val name = snapshot.data["name".value
+//                val phoneNumber = snapshot.data["phoneumber").value
+//                val picture = snapshot.data["pictue")
+//
+//                binding.edtName.setText(name.toString())
+//                binding.edtPhoneNumber.setText(phoneNumber.toString())
+//                Glide.with(this).load(picture).into(circleImageView)
+//
+//
+//
+//            }
+//        }
+
 
 
     private val launcherIntentGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -97,7 +114,7 @@ class EditUserActivity : AppCompatActivity() {
                     "phoneNumber" to phoneNumber
                 )
 
-                reference.child("UsersProfile").child(user).updateChildren(updateUser).addOnSuccessListener {
+                db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
                     Toast.makeText(this@EditUserActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
                     intent = Intent(this@EditUserActivity, UserProfileActivity::class.java)
                     startActivity(intent)

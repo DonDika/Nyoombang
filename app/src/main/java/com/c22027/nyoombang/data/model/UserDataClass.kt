@@ -1,6 +1,6 @@
 package com.c22027.nyoombang.data.model
 
-import android.net.Uri
+
 
 
 data class UserDataClass (
@@ -17,4 +17,7 @@ data class UserDataClass (
     val picture: String? = null
 
 )
+
+
+
 

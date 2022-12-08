@@ -20,6 +20,8 @@ import com.c22027.nyoombang.utils.Utilization.uriToFile
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
@@ -28,15 +30,16 @@ class AddEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEventBinding
     private val addEventViewModel by viewModels<AddEventViewModel>()
     private var getFile: Uri? = null
-    private lateinit var reference: DatabaseReference
+
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private val db by lazy { Firebase.firestore}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPreferencesHelper= SharedPreferencesHelper(this)
-        reference = FirebaseDatabase.getInstance().getReference("Event")
+
         init()
     }
 
@@ -130,30 +133,27 @@ class AddEventActivity : AppCompatActivity() {
             val eventName = edtName.text.toString()
             val descriptionEvent = edtDescription.text.toString()
             val endOfDate = addEventViewModel.date.value.toString()
-
+            val key = db.collection("Event").document().id
 
             val uploadRef =
                 FirebaseStorage.getInstance().getReference("/EventPicture/${getFile?.lastPathSegment}")
             uploadRef.putFile(getFile!!).addOnSuccessListener {
                 uploadRef.downloadUrl.addOnSuccessListener {
                     val eventDataClass = EventDataClass(
-                        event_id = reference.push().key.toString(),
+                        key,
                         userId,
                         eventName,
                         it.toString(),
                         descriptionEvent,
                         endOfDate,
-                        0
+                        "0"
                     )
+                db.collection("Event").document(key).set(eventDataClass).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        Toast.makeText(this@AddEventActivity,"Event Berhasil Ditambahkan",Toast.LENGTH_SHORT).show()
+                    }
+                }
 
-                    reference.child(eventDataClass.event_id.toString()).setValue(eventDataClass)
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                this@AddEventActivity,
-                                "Berhasil di Menambahkan event",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
                 }
 
             }.addOnFailureListener {

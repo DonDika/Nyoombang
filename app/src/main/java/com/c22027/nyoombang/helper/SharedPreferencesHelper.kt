@@ -20,10 +20,19 @@ class SharedPreferencesHelper(context: Context) {
     get() = preferences.getString(Constant.PREF_LEVEL,"")
     set(value) = preferences.edit().putString(Constant.PREF_LEVEL,value).apply()
 
+    var prefOrderId: String?
+    get() =  preferences.getString(Constant.PREF_ORDERID,"")
+    set(value) = preferences.edit().putString(Constant.PREF_ORDERID,value).apply()
+
+
 
     fun prefClear(){
         preferences.edit().remove(Constant.PREF_IS_LOGIN).apply()
         preferences.edit().remove(Constant.PREF_LEVEL).apply()
+    }
+
+    fun clearOrderId(){
+        preferences.edit().remove(Constant.PREF_ORDERID).apply()
     }
 
 
