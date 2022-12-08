@@ -49,11 +49,10 @@ object Utilization {
     const val PREF_ORDER_ID = "order_id"
 
 
-    fun amountFormat(number: Double): String {
+
+    fun amountFormat(number: Double): String{
         val numberFormat: NumberFormat = DecimalFormat("####")
         return numberFormat.format(number)
-
-
     }
     
         //Implement here

@@ -16,6 +16,9 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".ui.details.CommunityDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.profile.user.EditUserActivity"
             android:exported="false" />
         <activity
@@ -81,14 +84,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <!--<activity
+        <!--
+<activity
             android:name=".ui.donation.DonationHistoryActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>-->
-
+        </activity>
+        -->
         <activity
             android:name=".ui.auth.login.LoginActivity"
             android:exported="true">
@@ -97,24 +100,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <!--<activity
-            android:name=".ui.details.DetailsEventActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>-->
-
     </application>
 
 </manifest>

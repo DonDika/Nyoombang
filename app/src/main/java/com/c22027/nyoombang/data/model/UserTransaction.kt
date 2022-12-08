@@ -1,12 +1,14 @@
 package com.c22027.nyoombang.data.model
 
 data class UserTransaction(
-    var id: String?,
-    val userId: String,
-    val orderId: String,
-    val username: String,
-    val campaignName: String,
-    val amount: String,
-    val status: String,
-    val transactionTime: String,
+    var orderId: String? =null,
+    val userId: String? =null,
+    val eventId: String? =null,
+    val name: String? =null,
+    val campaignName: String? =null,
+    val amount: String? =null,
+    val status: String? =null,
+    val transactionTime: String? =null,
+    val eventIdStatus : String? =null,
+    val userIdStatus: String? =null
 )

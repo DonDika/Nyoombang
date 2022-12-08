@@ -143,7 +143,7 @@ class AddEventActivity : AppCompatActivity() {
                         it.toString(),
                         descriptionEvent,
                         endOfDate,
-                        0
+                        "0"
                     )
 
                     reference.child(eventDataClass.event_id.toString()).setValue(eventDataClass)

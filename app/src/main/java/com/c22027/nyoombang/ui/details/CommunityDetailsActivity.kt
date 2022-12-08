@@ -1,7 +1,6 @@
-package com.c22027.nyoombang.ui.profile.community
+package com.c22027.nyoombang.ui.details
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -9,36 +8,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.databinding.ActivityCommunityProfileBinding
+import com.c22027.nyoombang.databinding.ActivityCommunityDetailsBinding
 import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.profile.community.CommunityProfileViewModel
 
-class CommunityProfileActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCommunityProfileBinding
-    private lateinit var preferences: SharedPreferencesHelper
+class CommunityDetailsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCommunityDetailsBinding
+
     private val viewModel: CommunityProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCommunityProfileBinding.inflate(layoutInflater)
+        binding = ActivityCommunityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        preferences = SharedPreferencesHelper(this)
 
         setupView()
-        binding.edit.setOnClickListener {
-            intent  = Intent(this@CommunityProfileActivity,EditCommunityActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
     }
 
     private fun setupView() {
-        viewModel.getCommunity(preferences.prefUid.toString()).observe(this) {
+        val communityId = intent.getStringExtra(EXTRA_USER).toString()
+        viewModel.getCommunity(communityId).observe(this) {
             binding.apply {
-                Glide.with(this@CommunityProfileActivity)
+                Glide.with(this@CommunityDetailsActivity)
                     .load(it.items!![0].picture)
-                    .error(ContextCompat.getDrawable(this@CommunityProfileActivity, R.drawable.icon_account))
+                    .error(ContextCompat.getDrawable(this@CommunityDetailsActivity, R.drawable.icon_account))
                     .into(civProfile)
 
                 edtName.setText(it.items!![0].name)
@@ -70,6 +66,10 @@ class CommunityProfileActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object{
+        const val EXTRA_USER = "extra user"
     }
 
 
