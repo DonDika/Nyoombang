@@ -76,24 +76,40 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     override fun onStart() {
         val campaign = intent.getStringExtra(EXTRA_EVENT).toString()
         super.onStart()
-        ref.child("UsersProfile").child(pref.prefUid.toString()).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                name = snapshot.child("name").value.toString()
-                phoneNumber = snapshot.child("phoneNumber").value.toString()
-                email = snapshot.child("email").value.toString()
 
+        db.collection("UsersProfile").document(pref.prefUid.toString()).get().addOnCompleteListener {
+            if (it.isSuccessful){
+                val document = it.result
+                name = document.data!!["name"].toString()
+                phoneNumber = document.data!!["phoneNumber"].toString()
+                email = document.data!!["email"].toString()
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
-
-        ref.child("Event").child(campaign).get().addOnSuccessListener {
-            tempAmount = it.child("totalAmount").value.toString()
         }
+        db.collection("Event").document(campaign).get().addOnCompleteListener {
+            if (it.isSuccessful){
+                val document = it.result
+                tempAmount = document.data!!["totalAmount"].toString()
+            }
+        }
+
+//        ref.child("UsersProfile").child(pref.prefUid.toString()).addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                name = snapshot.child("name").value.toString()
+//                phoneNumber = snapshot.child("phoneNumber").value.toString()
+//                email = snapshot.child("email").value.toString()
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//
+//        })
+//
+//        ref.child("Event").child(campaign).get().addOnSuccessListener {
+//            tempAmount = it.child("totalAmount").value.toString()
+//        }
     }
 
     private fun setupListener() {
@@ -140,35 +156,59 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     private fun setData(){
         binding.apply {
              var communityId: String? = null
-
-
             val campaign = intent.getStringExtra(EXTRA_EVENT)
             Log.d("campaign",campaign.toString())
-                ref.child("Event").child(campaign.toString()).get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val snapshot = task.result
-                           Glide.with(this@DetailsEventActivity).load(snapshot.child("eventPicture").value).into(imageCampaign)
-                            communityId = snapshot.child("user_id").value.toString()
-                            tvCampaignName.text = snapshot.child("eventName").value.toString()
-                            tvCampaignDescription.text = snapshot.child("eventDescription").value.toString()
-                            tvUserDate.text = snapshot.child("endOfDate").value.toString()
-                            tvAmount.text = snapshot.child("totalAmount").value.toString()
 
-                            ref.child("UsersProfile").child(communityId.toString()).get().addOnCompleteListener {
-                                if (it.isSuccessful){
-                                    val snapshot = it.result
-                                    tvUserName.text = snapshot.child("name").value.toString()
-                                    Glide.with(this@DetailsEventActivity).load(snapshot.child("picture").value).into(imageUser)
-                                    binding.tvUserName.setOnClickListener {
+            db.collection("Event").document(campaign.toString()).get().addOnCompleteListener {
+                if (it.isSuccessful){
+                    val document = it.result
+                    Glide.with(this@DetailsEventActivity).load(document.data!!["eventPicture"].toString()).into(imageCampaign)
+                            communityId = document.data!!["user_id"].toString()
+                            tvCampaignName.text = document.data!!["eventName"].toString()
+                            tvCampaignDescription.text = document.data!!["eventDescription"].toString()
+                            tvUserDate.text = document.data!!["endOfDate"].toString()
+                            tvAmount.text = document.data!!["totalAmount"].toString()
+
+                    db.collection("UsersProfile").document(communityId.toString()).get().addOnCompleteListener { task->
+                        if (task.isSuccessful){
+                            val snapshot = task.result
+                            Glide.with(this@DetailsEventActivity).load(snapshot.data!!["picture"].toString()).into(imageUser)
+                            tvUserName.text = snapshot.data!!["name"].toString()
+                            binding.tvUserName.setOnClickListener {
                                         intent = Intent(this@DetailsEventActivity,CommunityDetailsActivity::class.java)
                                         intent.putExtra(EXTRA_USER,communityId)
                                         startActivity(intent)
                                     }
-                                }
-                            }
                         }
+
                     }
+                }
+            }
+//                ref.child("Event").child(campaign.toString()).get()
+//                    .addOnCompleteListener { task ->
+//                        if (task.isSuccessful) {
+//                            val snapshot = task.result
+//                           Glide.with(this@DetailsEventActivity).load(snapshot.child("eventPicture").value).into(imageCampaign)
+//                            communityId = snapshot.child("user_id").value.toString()
+//                            tvCampaignName.text = snapshot.child("eventName").value.toString()
+//                            tvCampaignDescription.text = snapshot.child("eventDescription").value.toString()
+//                            tvUserDate.text = snapshot.child("endOfDate").value.toString()
+//                            tvAmount.text = snapshot.child("totalAmount").value.toString()
+//
+//                            ref.child("UsersProfile").child(communityId.toString()).get().addOnCompleteListener {
+//                                if (it.isSuccessful){
+//                                    val snapshot = it.result
+//                                    tvUserName.text = snapshot.child("name").value.toString()
+//                                    Glide.with(this@DetailsEventActivity).load(snapshot.child("picture").value).into(imageUser)
+//                                    binding.tvUserName.setOnClickListener {
+//                                        intent = Intent(this@DetailsEventActivity,CommunityDetailsActivity::class.java)
+//                                        intent.putExtra(EXTRA_USER,communityId)
+//                                        startActivity(intent)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
 
 
 
