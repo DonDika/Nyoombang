@@ -11,21 +11,25 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.c22027.nyoombang.databinding.ActivityOnBoardingBinding
+import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.auth.login.LoginActivity
 import kotlin.math.absoluteValue
 
 class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityOnBoardingBinding
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sharedPreferencesHelper= SharedPreferencesHelper(this)
 
         setupView()
         binding.tvNext.setOnClickListener {
             if (binding.tvNext.alpha.toInt() == 1){
+                sharedPreferencesHelper.prefNewAccess = false
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
