@@ -9,35 +9,53 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.viewModels
 import com.c22027.nyoombang.databinding.ActivityLoginBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.data.model.UserResponse
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 import com.c22027.nyoombang.ui.dashboard.DashboardActivity
-import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
-import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+
 class LoginActivity : AppCompatActivity() {
-    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
-    private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel by viewModels<LoginViewModel>()
-    private val db by lazy { Firebase.firestore}
+
+    private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
+    private val fireStore by lazy { Firebase.firestore}
+    private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferencesHelper= SharedPreferencesHelper(this)
+
+
+        setupListener()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if(sharedPreferences.prefLevel.equals("User")){
+            intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if(sharedPreferences.prefLevel.equals("Community")){
+            intent = Intent(this@LoginActivity, AddEventActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+
+    private fun setupListener() {
         binding.loginButton.setOnClickListener {
             loginUser()
         }
-        binding.edtEmail.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+        binding.edtEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -46,15 +64,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
-
         })
 
-
-        binding.edtPassword.addTextChangedListener(object : TextWatcher{
+        binding.edtPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -63,16 +77,15 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
-
         })
+
         binding.signUp.setOnClickListener {
-            val intent = Intent(this@LoginActivity,RegisterActivity::class.java)
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
-
     }
+
 
     @SuppressLint("SuspiciousIndentation")
     private fun validEmail(): String? {
@@ -91,98 +104,55 @@ class LoginActivity : AppCompatActivity() {
         return null
     }
 
-
-//private fun login(response: UserResponse){
-//    val password = binding.edtPassword.text.toString()
-//    response.items?.let { users ->
-//        users.forEach { user ->
-//            if (user.password.equals(password)) {
-//                sharedPreferencesHelper.prefStatus = true
-//                sharedPreferencesHelper.prefLevel = user.role
-//                sharedPreferencesHelper.prefUid = user.user_id
-//                if (user.role.equals("User")) {
-//                    intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                } else if (user.role.equals("Community")) {
-//                    intent =
-//                        Intent(this@LoginActivity, CommunityProfileActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-//            } else {
-//                Toast.makeText(
-//                    this@LoginActivity,
-//                    "Kata sandi salah masukan kembali",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
-//}
-
     private fun loginUser() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-        db.collection("UsersProfile").whereEqualTo("email",email).whereEqualTo("password",password).get().addOnCompleteListener {task ->
-            if (task.isSuccessful){
-                val document =task.result
-                if(document.isEmpty){
-                    Toast.makeText(
-                    this@LoginActivity,
-                    "Akun anda tidak tersedia periksa kembali email dan password",
-                    Toast.LENGTH_SHORT
-                ).show()
-                }else{
-                    document.forEach {
-                        sharedPreferencesHelper.prefStatus = true
-                        sharedPreferencesHelper.prefLevel = it.data["role"].toString()
-                        sharedPreferencesHelper.prefUid = it.data["user_id"].toString()
-                        if (it.data["role"].toString().equals("User")) {
-                            intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else if (it.data["role"].toString().equals("Community")) {
-                            intent =
-                                Intent(this@LoginActivity, AddEventActivity::class.java)
-                            startActivity(intent)
-                            finish()
+        fireStore.collection("UsersProfile")
+            .whereEqualTo("email", email)
+            .whereEqualTo("password", password)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if (document.isEmpty) {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Akun anda tidak tersedia periksa kembali email dan password",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        document.forEach {
+                            sharedPreferences.prefStatus = true
+                            sharedPreferences.prefLevel = it.data["role"].toString()
+                            sharedPreferences.prefUid = it.data["user_id"].toString()
+                            if (it.data["role"].toString().equals("User")) {
+                                intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else if (it.data["role"].toString().equals("Community")) {
+                                intent =
+                                    Intent(this@LoginActivity, AddEventActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                         }
-                    }
 
+                    }
                 }
             }
-        }
-//        loginViewModel.loginUsingLiveData(email, password).observe(this) {
-//           login(it)
-//
-//                }
-            }
+    }
 
     private fun setButtonEnable() {
         binding.apply {
             val password = edtPassword.text
             val email = edtEmail.text
-            loginButton.isEnabled = password.toString().length >= 6 && Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if(sharedPreferencesHelper.prefLevel.equals("User")){
-            intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        else if(sharedPreferencesHelper.prefLevel.equals("Community")){
-            intent =
-                Intent(this@LoginActivity, AddEventActivity::class.java)
-            startActivity(intent)
-            finish()
+            loginButton.isEnabled =
+                password.toString().length >= 6 && Patterns.EMAIL_ADDRESS.matcher(email.toString())
+                    .matches()
         }
     }
 
 
 
-    }
+}
 

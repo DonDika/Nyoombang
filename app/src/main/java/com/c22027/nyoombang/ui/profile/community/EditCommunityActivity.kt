@@ -8,17 +8,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
-import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityEditCommunityBinding
-import com.c22027.nyoombang.databinding.ActivityEditUserBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_donation.*
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,7 +1,6 @@
 package com.c22027.nyoombang.ui.addevent
 
-import android.net.Uri
-import android.util.Patterns
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.data.model
 
+
 data class UserTransaction(
     var orderId: String,
     val userId: String,

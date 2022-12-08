@@ -14,12 +14,10 @@ import android.util.Log
 import android.widget.Toast
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityAddEventBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 
 import com.c22027.nyoombang.utils.Utilization.uriToFile
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -38,7 +36,8 @@ class AddEventActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferencesHelper= SharedPreferencesHelper(this)
+
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
 
         init()
     }

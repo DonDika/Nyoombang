@@ -8,27 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.model.TransactionResponse
 import com.c22027.nyoombang.data.model.UserTransaction
 import com.c22027.nyoombang.data.remote.ApiConfig
 import com.c22027.nyoombang.databinding.ActivityDetailsEventBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.details.CommunityDetailsActivity.Companion.EXTRA_USER
-import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
-import com.c22027.nyoombang.ui.profile.community.CommunityProfileViewModel
+import com.c22027.nyoombang.utils.Constant
 import com.c22027.nyoombang.utils.Utilization
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
@@ -39,20 +30,19 @@ import com.midtrans.sdk.corekit.models.snap.Gopay
 import com.midtrans.sdk.corekit.models.snap.Shopeepay
 import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
-import kotlinx.android.synthetic.main.activity_details_event.*
 import kotlinx.android.synthetic.main.dialog_payment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+
 class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
 
     private val binding by lazy { ActivityDetailsEventBinding.inflate(layoutInflater) }
-    private val ref by lazy { FirebaseDatabase.getInstance().reference }
-    private val db by lazy { Firebase.firestore}
-    private val viewModel: DetailsViewModel by viewModels()
-    private val storage by lazy { FirebaseStorage.getInstance()}
-    private val pref by lazy { SharedPreferencesHelper(this) }
+    private val fireStore by lazy { Firebase.firestore}
+    private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
+
     var name =""
     var phoneNumber = ""
     var email = ""
@@ -67,49 +57,34 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         setData()
         setupListener()
         initMidtransSdk()
-
-//        getDataAmountCampaign()
-
-
     }
 
     override fun onStart() {
-        val campaign = intent.getStringExtra(EXTRA_EVENT).toString()
         super.onStart()
+        val campaign = intent.getStringExtra(EXTRA_EVENT).toString()
 
-        db.collection("UsersProfile").document(pref.prefUid.toString()).get().addOnCompleteListener {
-            if (it.isSuccessful){
-                val document = it.result
-                name = document.data!!["name"].toString()
-                phoneNumber = document.data!!["phoneNumber"].toString()
-                email = document.data!!["email"].toString()
+        fireStore.collection("UsersProfile")
+            .document(sharedPreferences.prefUid.toString())
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val document = it.result
+                    name = document.data!!["name"].toString()
+                    phoneNumber = document.data!!["phoneNumber"].toString()
+                    email = document.data!!["email"].toString()
+                }
             }
-        }
-        db.collection("Event").document(campaign).get().addOnCompleteListener {
-            if (it.isSuccessful){
-                val document = it.result
-                tempAmount = document.data!!["totalAmount"].toString()
-            }
-        }
 
-//        ref.child("UsersProfile").child(pref.prefUid.toString()).addValueEventListener(object: ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                name = snapshot.child("name").value.toString()
-//                phoneNumber = snapshot.child("phoneNumber").value.toString()
-//                email = snapshot.child("email").value.toString()
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//
-//        })
-//
-//        ref.child("Event").child(campaign).get().addOnSuccessListener {
-//            tempAmount = it.child("totalAmount").value.toString()
-//        }
+        fireStore.collection("Event")
+            .document(campaign)
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val document = it.result
+                    tempAmount = document.data!!["totalAmount"].toString()
+                }
+            }
+
     }
 
     private fun setupListener() {
@@ -119,7 +94,6 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         binding.refreshData.setOnRefreshListener {
             fetchApi()
             getDataTotalAmount()
-//            getDataAmountCampaign()
             binding.refreshData.isRefreshing = false
         }
     }
@@ -153,68 +127,48 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     }
 
     //get data campaign from Home using parcelable
-    private fun setData(){
+    private fun setData() {
         binding.apply {
-             var communityId: String? = null
+            var communityId: String? = null
             val campaign = intent.getStringExtra(EXTRA_EVENT)
-            Log.d("campaign",campaign.toString())
+            Log.d("campaign", campaign.toString())
 
-            db.collection("Event").document(campaign.toString()).get().addOnCompleteListener {
-                if (it.isSuccessful){
-                    val document = it.result
-                    Glide.with(this@DetailsEventActivity).load(document.data!!["eventPicture"].toString()).into(imageCampaign)
-                            communityId = document.data!!["user_id"].toString()
-                            tvCampaignName.text = document.data!!["eventName"].toString()
-                            tvCampaignDescription.text = document.data!!["eventDescription"].toString()
-                            tvUserDate.text = document.data!!["endOfDate"].toString()
-                            tvAmount.text = document.data!!["totalAmount"].toString()
+            fireStore.collection("Event").document(campaign.toString()).get()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val document = it.result
+                        Glide.with(this@DetailsEventActivity)
+                            .load(document.data!!["eventPicture"].toString()).into(imageCampaign)
+                        communityId = document.data!!["user_id"].toString()
+                        tvCampaignName.text = document.data!!["eventName"].toString()
+                        tvCampaignDescription.text = document.data!!["eventDescription"].toString()
+                        tvUserDate.text = document.data!!["endOfDate"].toString()
+                        tvAmount.text = document.data!!["totalAmount"].toString()
 
-                    db.collection("UsersProfile").document(communityId.toString()).get().addOnCompleteListener { task->
-                        if (task.isSuccessful){
-                            val snapshot = task.result
-                            Glide.with(this@DetailsEventActivity).load(snapshot.data!!["picture"].toString()).into(imageUser)
-                            tvUserName.text = snapshot.data!!["name"].toString()
-                            binding.tvUserName.setOnClickListener {
-                                        intent = Intent(this@DetailsEventActivity,CommunityDetailsActivity::class.java)
-                                        intent.putExtra(EXTRA_USER,communityId)
+                        fireStore.collection("UsersProfile").document(communityId.toString()).get()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val snapshot = task.result
+                                    Glide.with(this@DetailsEventActivity)
+                                        .load(snapshot.data!!["picture"].toString()).into(imageUser)
+                                    tvUserName.text = snapshot.data!!["name"].toString()
+                                    binding.tvUserName.setOnClickListener {
+                                        intent = Intent(
+                                            this@DetailsEventActivity,
+                                            CommunityDetailsActivity::class.java
+                                        )
+                                        intent.putExtra(EXTRA_USER, communityId)
                                         startActivity(intent)
                                     }
-                        }
+                                }
 
+                            }
                     }
                 }
-            }
-//                ref.child("Event").child(campaign.toString()).get()
-//                    .addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            val snapshot = task.result
-//                           Glide.with(this@DetailsEventActivity).load(snapshot.child("eventPicture").value).into(imageCampaign)
-//                            communityId = snapshot.child("user_id").value.toString()
-//                            tvCampaignName.text = snapshot.child("eventName").value.toString()
-//                            tvCampaignDescription.text = snapshot.child("eventDescription").value.toString()
-//                            tvUserDate.text = snapshot.child("endOfDate").value.toString()
-//                            tvAmount.text = snapshot.child("totalAmount").value.toString()
-//
-//                            ref.child("UsersProfile").child(communityId.toString()).get().addOnCompleteListener {
-//                                if (it.isSuccessful){
-//                                    val snapshot = it.result
-//                                    tvUserName.text = snapshot.child("name").value.toString()
-//                                    Glide.with(this@DetailsEventActivity).load(snapshot.child("picture").value).into(imageUser)
-//                                    binding.tvUserName.setOnClickListener {
-//                                        intent = Intent(this@DetailsEventActivity,CommunityDetailsActivity::class.java)
-//                                        intent.putExtra(EXTRA_USER,communityId)
-//                                        startActivity(intent)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-
-
-
             Log.e("TAG", campaign.toString())
         }
     }
+
 
     //get data amount donation campaign from firebase
 
@@ -222,8 +176,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         val campaign = intent.getStringExtra(EXTRA_EVENT)
         var totalAmount = binding.tvAmount.text.toString().toDouble()
         //get data from firestore
-        db.collection("transaction")
-            .whereEqualTo("eventId",campaign.toString() )
+        fireStore.collection("transaction")
+            .whereEqualTo("eventId", campaign.toString())
             .whereEqualTo("status", "settlement")
             .get()
             .addOnSuccessListener { result ->
@@ -235,25 +189,25 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     }
 
 
-
-
-
     private fun fetchApi() {
         val campaign = intent.getStringExtra(EXTRA_EVENT).toString()
-        val orderId = pref.prefOrderId.toString()
+        val orderId = sharedPreferences.prefOrderId.toString()
         Log.d("OrderID", orderId)
         //Log.e("TAG", orderId.toString() )
-        if (orderId?.isEmpty() == false){
+        if (orderId?.isEmpty() == false) {
             val client = ApiConfig.getApiService().getTransaction(orderId)
             client.enqueue(object : Callback<TransactionResponse> {
-                override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
-                    if (response.isSuccessful){
+                override fun onResponse(
+                    call: Call<TransactionResponse>,
+                    response: Response<TransactionResponse>
+                ) {
+                    if (response.isSuccessful) {
                         //response success from Api and add to firebase
                         val responseBody = response.body()!!
                         val addTransactionData =
                             UserTransaction(
                                 responseBody.orderId,
-                                pref.prefUid.toString(),
+                                sharedPreferences.prefUid.toString(),
                                 campaign,
                                 name,
                                 binding.tvCampaignName.text.toString(),
@@ -261,49 +215,48 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                                 responseBody.transactionStatus,
                                 responseBody.transactionTime,
                                 "${campaign}-${responseBody.transactionStatus}",
-                                "${pref.prefUid.toString()}-${responseBody.transactionStatus}"
+                                "${sharedPreferences.prefUid.toString()}-${responseBody.transactionStatus}"
                             )
-                        Log.d("gross",responseBody.grossAmount.toDouble().toString())
-                        if (responseBody.transactionStatus == "settlement"){
-                            pref.clearOrderId()
+                        Log.d("gross", responseBody.grossAmount.toDouble().toString())
+                        if (responseBody.transactionStatus == "settlement") {
+                            sharedPreferences.clearOrderId()
                         }
-                        db.collection("transaction")
+                        fireStore.collection("transaction")
                             .add(addTransactionData)
 
-                        /*.addOnSuccessListener {
-                            //progress(false)
-                            //Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
-                            //finish()
-                            //pref.clearOrderId()
-                        }*/
+                            .addOnSuccessListener {
+                                //progress(false)
+                                //Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                                //finish()
+                                //pref.clearOrderId()
+                            }
+
                     }
                 }
+
                 override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
                     TODO("Not yet implemented")
                 }
             })
         } else {
-            Log.e("TAG", "Do nothing", )
+            Log.e("TAG", "Do nothing")
         }
-
-
-
 
 
     }
 
-    private fun addDb(userTransaction: UserTransaction){
+    /*private fun addDb(userTransaction: UserTransaction){
         ref.child("Transaction").child(userTransaction.orderId.toString()).setValue(userTransaction).addOnSuccessListener {
             Toast.makeText(this@DetailsEventActivity, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
             pref.clearOrderId()
 
         }
 
-    }
+    }*/
 
     private fun initMidtransSdk() {
-        val clientKey: String = Utilization.MERCHANT_CLIENT_KEY
-        val baseUrl: String = Utilization.MERCHANT_BASE_CHECKOUT_URL
+        val clientKey: String = Constant.MERCHANT_CLIENT_KEY
+        val baseUrl: String = Constant.MERCHANT_BASE_CHECKOUT_URL
 
         val sdkUIFlowBuilder: SdkUIFlowBuilder = SdkUIFlowBuilder.init()
             .setClientKey(clientKey)
@@ -340,7 +293,7 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
 
     private fun initTransactionRequest(payment: Double): TransactionRequest {
         val orderId = "Nyoombang:" + System.currentTimeMillis().toString()
-        pref.prefOrderId = orderId
+        sharedPreferences.prefOrderId = orderId
         val transactionRequest = TransactionRequest(orderId, payment)
         transactionRequest.customerDetails = initCustomerDetails()
         transactionRequest.gopay = Gopay("mysamplesdk:://midtrans")
@@ -367,9 +320,6 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                 Toast.makeText(this, "Transaction Finished with Failure.", Toast.LENGTH_SHORT).show()
             }
         }
-        /*val intent = Intent(this, DetailActivity::class.java)
-        startActivity(intent)*/
-        //finish()
         fetchApi()
     }
 
