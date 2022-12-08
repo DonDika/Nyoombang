@@ -15,6 +15,8 @@ import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_donation.*
 import java.text.SimpleDateFormat
@@ -24,6 +26,7 @@ class EditCommunityActivity : AppCompatActivity() {
     private lateinit var reference: DatabaseReference
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var binding: ActivityEditCommunityBinding
+    private val db by lazy { Firebase.firestore}
     private var currentDate: String? = null
     private var filePath: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,32 +56,26 @@ class EditCommunityActivity : AppCompatActivity() {
     private fun displayData(){
 
         val user = sharedPreferencesHelper.prefUid.toString()
-        reference.child("UsersProfile").child(user).get().addOnCompleteListener {
-
-            if(it.isSuccessful){
+        db.collection("UsersProfile").document(user).get().addOnCompleteListener { it ->
+            if (it.isSuccessful){
                 val snapshot = it.result
-                val name = snapshot.child("name").value
-                val phoneNumber = snapshot.child("phoneNumber").value
-                val picture = snapshot.child("picture").value
-                val description = snapshot.child("description").value
-                val instagram = snapshot.child("instagram").value
-                val facebook = snapshot.child("facebook").value
-                val twitter = snapshot.child("twitter").value
+                val name = snapshot.data!!["name"].toString()
+                val phoneNumber = snapshot.data!!["phoneNumber"].toString()
+                val picture = snapshot.data!!["picture"].toString()
+                val description = snapshot.data!!["description"].toString()
+                val instagram = snapshot.data!!["instagram"].toString()
+                val twitter = snapshot.data!!["twitter"].toString()
+                val facebook = snapshot.data!!["facebook"].toString()
 
-
-            binding.apply {
-                edtName.setText(name.toString())
-                edtPhoneNumber.setText(phoneNumber.toString())
-                edtFb.setText(facebook.toString())
-                edtDescription.setText(description.toString())
-                edtIg.setText(instagram.toString())
-                edtTwitter.setText(twitter.toString())
-
-            }
-
-                Glide.with(this).load(picture).into(binding.civProfile)
-
-
+                binding.apply {
+                    edtName.setText(name)
+                    edtPhoneNumber.setText(phoneNumber)
+                    edtFb.setText(facebook)
+                    edtDescription.setText(description)
+                    edtIg.setText(instagram)
+                    edtTwitter.setText(twitter)
+                    Glide.with(this@EditCommunityActivity).load(picture).into(civProfile)
+                }
 
             }
         }
@@ -127,7 +124,7 @@ class EditCommunityActivity : AppCompatActivity() {
                     "picture" to it.toString()
                 )
 
-                reference.child("UsersProfile").child(user).updateChildren(updateUser).addOnSuccessListener {
+               db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
                     Toast.makeText(this@EditCommunityActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
                     intent = Intent(this@EditCommunityActivity, CommunityProfileActivity::class.java)
                     startActivity(intent)

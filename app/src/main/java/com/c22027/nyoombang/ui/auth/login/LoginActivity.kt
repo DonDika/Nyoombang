@@ -19,12 +19,14 @@ import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 import com.c22027.nyoombang.ui.dashboard.DashboardActivity
 import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
 import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel by viewModels<LoginViewModel>()
-
+    private val db by lazy { Firebase.firestore}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -90,42 +92,71 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-private fun login(response: UserResponse){
-    val password = binding.edtPassword.text.toString()
-    response.items?.let { users ->
-        users.forEach { user ->
-            if (user.password.equals(password)) {
-                sharedPreferencesHelper.prefStatus = true
-                sharedPreferencesHelper.prefLevel = user.role
-                sharedPreferencesHelper.prefUid = user.user_id
-                if (user.role.equals("User")) {
-                    intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else if (user.role.equals("Community")) {
-                    intent =
-                        Intent(this@LoginActivity, CommunityProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            } else {
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Kata sandi salah masukan kembali",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-}
+//private fun login(response: UserResponse){
+//    val password = binding.edtPassword.text.toString()
+//    response.items?.let { users ->
+//        users.forEach { user ->
+//            if (user.password.equals(password)) {
+//                sharedPreferencesHelper.prefStatus = true
+//                sharedPreferencesHelper.prefLevel = user.role
+//                sharedPreferencesHelper.prefUid = user.user_id
+//                if (user.role.equals("User")) {
+//                    intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                } else if (user.role.equals("Community")) {
+//                    intent =
+//                        Intent(this@LoginActivity, CommunityProfileActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }
+//            } else {
+//                Toast.makeText(
+//                    this@LoginActivity,
+//                    "Kata sandi salah masukan kembali",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
+//}
 
     private fun loginUser() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-        loginViewModel.loginUsingLiveData(email, password).observe(this) {
-           login(it)
+        db.collection("UsersProfile").whereEqualTo("email",email).whereEqualTo("password",password).get().addOnCompleteListener {task ->
+            if (task.isSuccessful){
+                val document =task.result
+                if(document.isEmpty){
+                    Toast.makeText(
+                    this@LoginActivity,
+                    "Akun anda tidak tersedia periksa kembali email dan password",
+                    Toast.LENGTH_SHORT
+                ).show()
+                }else{
+                    document.forEach {
+                        sharedPreferencesHelper.prefStatus = true
+                        sharedPreferencesHelper.prefLevel = it.data["role"].toString()
+                        sharedPreferencesHelper.prefUid = it.data["user_id"].toString()
+                        if (it.data["role"].toString().equals("User")) {
+                            intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else if (it.data["role"].toString().equals("Community")) {
+                            intent =
+                                Intent(this@LoginActivity, CommunityProfileActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
 
                 }
+            }
+        }
+//        loginViewModel.loginUsingLiveData(email, password).observe(this) {
+//           login(it)
+//
+//                }
             }
 
     private fun setButtonEnable() {

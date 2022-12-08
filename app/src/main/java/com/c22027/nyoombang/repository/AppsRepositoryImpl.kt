@@ -10,6 +10,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +20,7 @@ import retrofit2.Response
 class AppsRepositoryImpl {
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val _toastObserverMessage = MutableLiveData<String>()
+    private val db: FirebaseFirestore = Firebase.firestore
     val toastObserverMessage:MutableLiveData<String>   = _toastObserverMessage
     private val _transaction = MutableLiveData<TransactionResponse>()
     val transaction: LiveData<TransactionResponse>   = _transaction

@@ -102,12 +102,14 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         }
         binding.refreshData.setOnRefreshListener {
             fetchApi()
+            getDataTotalAmount()
 //            getDataAmountCampaign()
             binding.refreshData.isRefreshing = false
         }
     }
 
     private fun setupDialogPayment(){
+        val campaign = intent.getStringExtra(EXTRA_EVENT).toString()
         val dialogBinding = layoutInflater.inflate(R.layout.dialog_payment, null)
         val myDialog = Dialog(this)
         myDialog.setContentView(dialogBinding)
@@ -126,6 +128,9 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
             else {
                 MidtransSDK.getInstance().transactionRequest = initTransactionRequest(paymentAmount.toDouble()) //userDetails
                 MidtransSDK.getInstance().startPaymentUiFlow(this@DetailsEventActivity)
+
+
+
             }
         }
 
@@ -172,18 +177,22 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     }
 
     //get data amount donation campaign from firebase
-//    private fun getDataAmountCampaign() {
-//        var totalAmount = binding.tvAmount.text.toString()
-//        //get data from firestore
-//        ref.child("Transaction").orderByChild("eventIdStatus").equalTo("$event-settlement").get().addOnSuccessListener { result ->
-//            result
-//        }
-//
-//        val formatAmount = Utilization.amountFormat(totalAmount)
-//        binding.tvAmount.text = "Rp. $formatAmount"
-//
-//    }
 
+    private fun getDataTotalAmount() {
+        val campaign = intent.getStringExtra(EXTRA_EVENT)
+        var totalAmount = binding.tvAmount.text.toString().toDouble()
+        //get data from firestore
+        db.collection("transaction")
+            .whereEqualTo("eventId",campaign.toString() )
+            .whereEqualTo("status", "settlement")
+            .get()
+            .addOnSuccessListener { result ->
+                result.forEach { doc ->
+                    totalAmount += doc.data["amount"].toString().toInt()
+                }
+                binding.tvAmount.text = totalAmount.toString()
+            }
+    }
 
 
 
@@ -218,19 +227,9 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                         if (responseBody.transactionStatus == "settlement"){
                             pref.clearOrderId()
                         }
-                       ref.child("Transaction").child(addTransactionData.orderId.toString()).get().addOnCompleteListener {
-                           if (it.isSuccessful){
-                               val amount = responseBody.grossAmount.toDouble()
-                               val totalAmount = tempAmount.toDouble() + amount
-                               val updateAmount = mapOf<String,String>(
-                                   totalAmount.toString() to "totalAmount"
+                        db.collection("transaction")
+                            .add(addTransactionData)
 
-                               )
-                               ref.child("Event").child(campaign).updateChildren(updateAmount)
-
-                           }
-
-                       }
                         /*.addOnSuccessListener {
                             //progress(false)
                             //Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
@@ -289,25 +288,11 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
 
 
     private fun initCustomerDetails(): CustomerDetails {
-
-Log.d("test",phoneNumber)
-
-
-
-
         val customerDetails = CustomerDetails()
-
-
                 customerDetails.phone =phoneNumber
                 customerDetails.firstName =name
                 customerDetails.email = email
                 customerDetails.customerIdentifier =email
-
-
-
-
-
-
         return customerDetails
 
     }
