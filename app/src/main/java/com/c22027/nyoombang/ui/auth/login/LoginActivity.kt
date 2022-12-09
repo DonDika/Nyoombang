@@ -15,6 +15,7 @@ import com.c22027.nyoombang.R
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 import com.c22027.nyoombang.ui.dashboard.DashboardActivity
+import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -131,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                             if (it.data["role"].toString().equals("User")) {
-                                intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                                intent = Intent(this@LoginActivity,UserProfileActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             } else if (it.data["role"].toString().equals("Community")) {

@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_community_name"
+            android:id="@+id/tv_event_name"
             style="@style/Text.Title4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.259"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_community_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_name"
             tools:text="@tools:sample/date/ddmmyy" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:textColor="@color/color1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_community_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_name"
             tools:text="@tools:sample/date/hhmmss" />
 
         <TextView
@@ -67,11 +67,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_amount"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date"
             tools:text="Approved" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

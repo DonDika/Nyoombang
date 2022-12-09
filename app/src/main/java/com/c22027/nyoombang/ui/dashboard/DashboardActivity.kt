@@ -6,8 +6,10 @@ import android.os.Bundle
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityDashboardBinding
 import com.c22027.nyoombang.databinding.ActivityUserHistoryBinding
+import com.c22027.nyoombang.databinding.ActivityUserProfileBinding
 import com.c22027.nyoombang.ui.details.DetailsEventActivity
 import com.c22027.nyoombang.ui.profile.user.UserHistoryActivity
+import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -25,6 +27,7 @@ class DashboardActivity : AppCompatActivity() {
 
         setupListener()
         setupAdapter()
+
     }
 
     override fun onStart() {
@@ -36,7 +39,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.fabUser.setOnClickListener {
-            startActivity(Intent(this@DashboardActivity, UserHistoryActivity::class.java))
+            startActivity(Intent(this@DashboardActivity, UserProfileActivity::class.java))
         }
 
     }

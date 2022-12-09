@@ -13,6 +13,7 @@ import java.io.OutputStream
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -31,7 +32,7 @@ object Utilization {
         return numberFormat.format(number)
     }
     
-        //Implement here
+
 //    fun formatDate(currentDateString: String, targetTimeZone: String): String {
 //        val instant = Instant.parse(currentDateString)
 //        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
@@ -44,6 +45,21 @@ object Utilization {
 //        val formatter = DateTimeFormatter.ofPattern("HH:mm")
 //            .withZone(ZoneId.of(targetTimeZone))
 //        return formatter.format(instant)
+//    }
+//
+//    fun formatDateTrans(timestamp: String): String? {
+//        val d: Date =
+//        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).parse(timestamp) as Date
+//        val cal = Calendar.getInstance()
+//        cal.time = d
+//        return SimpleDateFormat("dd MMM yyyy").format(cal.time)
+//    }
+//fun formatTimeTrans(timestamp: String): String? {
+//    val d: Date =
+//    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).parse(timestamp) as Date
+//    val cal = Calendar.getInstance()
+//    cal.time = d
+//        return SimpleDateFormat("HH:mm").format(cal.time)
 //    }
 
 

@@ -137,7 +137,7 @@ class AddEventActivity : AppCompatActivity() {
                     val eventDataClass = EventDataClass(
                         eventId = key,
                         userId = userId!!,
-                        userName = "Udin",
+                        userName = sharedPreferences.prefUsername.toString(),
                         eventName = eventName,
                         eventPicture = it.toString(),
                         eventDescription = descriptionEvent,

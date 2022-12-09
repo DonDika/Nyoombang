@@ -31,39 +31,27 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tv_username"
-        style="@style/Text.Title4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/civ_profile"
-        tools:text="@tools:sample/first_names" />
-
-    <EditText
         android:id="@+id/edt_name"
         style="@style/Text.Description2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/profile_text_background"
         android:enabled="false"
-        android:inputType="text"
         android:minHeight="48dp"
         android:paddingLeft="13dp"
-        android:paddingRight="13dp"
         android:paddingTop="11dp"
+        android:paddingRight="13dp"
         android:paddingBottom="11dp"
         android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username"
+        app:layout_constraintTop_toBottomOf="@+id/civ_profile"
         tools:text="@tools:sample/full_names" />
 
-    <EditText
+    <TextView
         android:id="@+id/edt_email"
         style="@style/Text.Description2"
         android:layout_width="0dp"
@@ -73,11 +61,10 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/profile_text_background"
         android:enabled="false"
-        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:paddingLeft="13dp"
-        android:paddingRight="13dp"
         android:paddingTop="11dp"
+        android:paddingRight="13dp"
         android:paddingBottom="11dp"
         android:textColor="@color/color3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,42 +72,40 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_name"
         tools:text="@tools:sample/full_names" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/Text.Description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/color2"
+        android:text="Lihat Riwayat Donasimu"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+    <TextView
+        android:id="@+id/donation"
+        style="@style/Text.Description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:text="Selengkapnya"
+        android:textColor="@color/color2"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.c22027.nyoombang.ui.donation.HistoryDonation"
+        android:layout_width="405dp"
+        android:layout_height="308dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
 
-    <TextView
-        android:id="@+id/iv_history"
-        style="@style/Text.Title4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-16dp"
-        android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="History"
-        app:layout_constraintEnd_toEndOf="@+id/divider"
-        app:layout_constraintStart_toStartOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_donation"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_history"
-        tools:listitem="@layout/donation_item_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

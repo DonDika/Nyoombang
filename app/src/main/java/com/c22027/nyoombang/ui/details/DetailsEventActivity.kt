@@ -1,6 +1,7 @@
 package com.c22027.nyoombang.ui.details
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,7 @@ import com.c22027.nyoombang.data.remote.ApiConfig
 import com.c22027.nyoombang.databinding.ActivityDetailsEventBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.data.model.EventDataClass
-import com.c22027.nyoombang.data.model.UserDataClass
+import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
 import com.c22027.nyoombang.utils.Constant
 import com.c22027.nyoombang.utils.Utilization
 import com.google.firebase.firestore.ktx.firestore
@@ -34,6 +35,8 @@ import kotlinx.android.synthetic.main.dialog_payment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
@@ -41,7 +44,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     private val binding by lazy { ActivityDetailsEventBinding.inflate(layoutInflater) }
     private val fireStore by lazy { Firebase.firestore}
     private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
-
+    private var currentTime: String? =  null
+    private var currentDate: String? = null
     private lateinit var eventDataClass: EventDataClass
 
 
@@ -49,10 +53,16 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val formatterDate = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+        val formatterTime = DateTimeFormatter.ofPattern("HH:mm")
+        currentTime = LocalDateTime.now().format(formatterTime).toString()
+        currentDate = LocalDateTime.now().format(formatterDate).toString()
         setData()
         setupListener()
         initMidtransSdk()
         getAmountTransactionDonation()
+
+
     }
 
     override fun onBackPressed() {
@@ -110,7 +120,14 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
             tvUserName.text = eventDataClass.userName
             tvUserDate.text = eventDataClass.endOfDate
             tvCampaignDescription.text = eventDataClass.eventDescription
+            tvUserName.setOnClickListener {
+                intent = Intent(this@DetailsEventActivity,CommunityProfileActivity::class.java)
+                intent.putExtra(CommunityProfileActivity.EXTRA_ID,eventDataClass.userId)
+                startActivity(intent)
+            }
+
         }
+
 
     }
 
@@ -128,7 +145,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                     username = sharedPreferences.prefUsername!!,
                     amount = sharedPreferences.inputDonation!!,
                     status = "settlement",
-                    transactionTime = "12.30" //change using time format
+                    transactionTime = currentTime!!,
+                    transactionDate = currentDate!!//change using time format
                 )
             Log.e("TAG", eventDataClass.eventId )
             fireStore.collection("Transaction")
@@ -163,7 +181,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                                     username = sharedPreferences.prefUsername!!,
                                     amount = Utilization.amountFormat(responseBody.grossAmount.toDouble()),
                                     status = responseBody.transactionStatus,
-                                    transactionTime = responseBody.transactionTime
+                                    transactionTime = responseBody.transactionTime,
+                                    transactionDate = currentDate!!
                                 )
                             fireStore.collection("Transaction").add(addTransactionData)
                             sharedPreferences.clearOrderId()

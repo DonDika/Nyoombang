@@ -36,8 +36,9 @@ class CommunityProfileActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        val uId = intent.getStringExtra(EXTRA_ID)
         binding.apply {
-            db.collection("UsersProfile").whereEqualTo("user_id", preferences.prefUid.toString())
+            db.collection("UsersProfile").whereEqualTo("user_id", uId)
                 .get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val document = task.result
@@ -119,6 +120,19 @@ class CommunityProfileActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (preferences.prefLevel.toString() == "User"){
+            binding.edit.visibility = View.GONE
+        }else{
+            binding.edit.visibility = View.VISIBLE
+        }
+    }
+
+    companion object{
+        const val EXTRA_ID = "extra id"
     }
 
 
