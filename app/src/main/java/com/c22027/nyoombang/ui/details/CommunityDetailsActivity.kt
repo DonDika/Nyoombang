@@ -1,6 +1,5 @@
 package com.c22027.nyoombang.ui.details
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -9,23 +8,21 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityCommunityDetailsBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.profile.community.CommunityProfileViewModel
 
 class CommunityDetailsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCommunityDetailsBinding
 
+    private lateinit var binding: ActivityCommunityDetailsBinding
     private val viewModel: CommunityProfileViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityCommunityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
         setupView()
-
     }
 
     private fun setupView() {

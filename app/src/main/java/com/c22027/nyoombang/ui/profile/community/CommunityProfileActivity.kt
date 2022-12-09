@@ -1,7 +1,6 @@
 package com.c22027.nyoombang.ui.profile.community
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -10,11 +9,9 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityCommunityProfileBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_donation.*
-import kotlinx.android.synthetic.main.activity_edit_community.*
 
 class CommunityProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommunityProfileBinding

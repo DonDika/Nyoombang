@@ -8,17 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ItemsCampaignBinding
+import com.c22027.nyoombang.utils.Utilization
 
 class EventAdapter (
     private val context: Context,
-    var campaigns: ArrayList<EventDataClass>,
+    var events: ArrayList<EventDataClass>,
     var listener: AdapterListener?
 ) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     //add data
     fun setData(dataCampaign: List<EventDataClass>){
-        campaigns.clear()
-        campaigns.addAll(dataCampaign)
+        events.clear()
+        events.addAll(dataCampaign)
         notifyDataSetChanged()
     }
 
@@ -30,25 +31,26 @@ class EventAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val campaign = campaigns[position]
+        val event = events[position]
 
         //Log.e("adapter", campaign.toString() )
 
         holder.binding.apply {
-            Glide.with(context).load(campaign.eventPicture).into(circleImageView)
-            tvCampaignName.text = campaign.eventName
-            tvAmountCampaign.text = campaign.totalAmount.toString()
-            Log.d("eventError",campaign.eventPicture.toString())
+            Glide.with(context).load(event.eventPicture).into(circleImageView)
+            tvCampaignName.text = event.eventName
+            val formatAmount = Utilization.amountDonationFormat(event.totalAmount!!)
+            tvAmountCampaign.text = "Rp. $formatAmount"
+            Log.d("eventError",event.eventPicture.toString())
 
             container.setOnClickListener {
-                listener?.onClick(campaign)
+                listener?.onClick(event)
             }
         }
 
     }
 
     override fun getItemCount(): Int {
-        return campaigns.size
+        return events.size
     }
 
 

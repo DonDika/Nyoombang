@@ -9,8 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.databinding.ActivityEditUserBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore

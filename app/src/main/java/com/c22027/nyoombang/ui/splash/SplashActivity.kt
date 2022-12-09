@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.c22027.nyoombang.R
 import android.os.Handler
 import android.os.Looper
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.auth.login.LoginActivity
 import com.c22027.nyoombang.ui.onboarding.OnBoardingActivity
 

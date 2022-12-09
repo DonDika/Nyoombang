@@ -5,9 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.c22027.nyoombang.data.model.*
 import com.c22027.nyoombang.data.remote.ApiConfig
-import com.c22027.nyoombang.data.remote.repository.AppsRepositoryImpl
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore

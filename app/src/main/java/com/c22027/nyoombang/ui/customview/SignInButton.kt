@@ -1,4 +1,4 @@
-package com.c22027.nyoombang.CustomView
+package com.c22027.nyoombang.ui.customview
 
 import android.content.Context
 import android.graphics.Canvas

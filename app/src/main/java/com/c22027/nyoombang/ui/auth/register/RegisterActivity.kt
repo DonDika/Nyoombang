@@ -12,19 +12,11 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.c22027.nyoombang.MainActivity
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.model.UserDataClass
-import com.c22027.nyoombang.data.model.UserResponse
 import com.c22027.nyoombang.databinding.ActivityRegisterBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
-import com.c22027.nyoombang.ui.addevent.AddEventActivity
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.auth.login.LoginActivity
-import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
-import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
@@ -33,9 +25,11 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
-    private val db by lazy { Firebase.firestore}
-    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
+    private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
+
+    private val fireStore by lazy { Firebase.firestore }
+
     lateinit var ref: DatabaseReference
 
 
@@ -43,14 +37,11 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPreferencesHelper = SharedPreferencesHelper(this)
-        registerViewModel.toastObserverMessage.observe(this){
+       /* registerViewModel.toastObserverMessage.observe(this){
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
-        }
-
+        }*/
 
 
 
@@ -58,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun init(){
-
         Log.d("masuk",binding.edtDropdownInputRole.text.toString())
         val items = listOf("Community", "User")
         val adapter = ArrayAdapter(this, R.layout.list_item, items)
@@ -68,7 +58,6 @@ class RegisterActivity : AppCompatActivity() {
         ( binding.edtDropdownInputRole as? AutoCompleteTextView)?.setAdapter(adapter)
 
         with(binding){
-
             btnRegister.setOnClickListener {
 
                 registration()
@@ -136,7 +125,6 @@ class RegisterActivity : AppCompatActivity() {
                     registerViewModel.statePassword(s.toString())
                     registerViewModel.stateCheckBtnRegister()
                 }
-
                 override fun afterTextChanged(s: Editable?) {
                     edtLayoutPassword.error = registerViewModel.validPassword()
                 }
@@ -144,35 +132,32 @@ class RegisterActivity : AppCompatActivity() {
 
             edtConfirmPassword.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
                 }
-
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     registerViewModel.stateConfirmPassword(s.toString())
                     registerViewModel.stateCheckBtnRegister()
                     edtLayoutConfirmPassword.error = registerViewModel.validConfirmPassword()
                 }
-
                 override fun afterTextChanged(s: Editable?) {}
             })
         }
     }
 
-    private fun registration(){
+    private fun registration() {
         val email = binding.edtEmail.text.toString()
         val phoneNumber = binding.edtPhoneNumber.text.toString()
         val password = binding.edtPassword.text.toString()
         val name = binding.edtName.text.toString()
         val role = binding.edtDropdownInputRole.text.toString()
-        val key = db.collection("UsersProfile").document().id
-        db.collection("UsersProfile").whereEqualTo("email",email).get().addOnCompleteListener {task ->
-
-                if (task.isSuccessful){
+        val key = fireStore.collection("UsersProfile").document().id
+        fireStore.collection("UsersProfile")
+            .whereEqualTo("email", email).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     val document = task.result
-
-                    if (document != null){
+                    if (document != null) {
                         val userProfile = UserDataClass(
-                           key,
+                            key,
                             email,
                             phoneNumber,
                             password,
@@ -184,28 +169,24 @@ class RegisterActivity : AppCompatActivity() {
                             "",
                             ""
                         )
-                        db.collection("UsersProfile").document(key).set(userProfile)
-                        Toast.makeText(this@RegisterActivity,"Registration Success",Toast.LENGTH_SHORT).show()
-                        intent = Intent(this,LoginActivity::class.java)
+                        fireStore.collection("UsersProfile").document(key).set(userProfile)
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Registration Success",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
-
-                    }
-                    else{
-                        Toast.makeText(this@RegisterActivity,"Email already used ",Toast.LENGTH_SHORT).show()
-
+                    } else {
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Email already used ",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-
-                }
-
-
-
-
-
-
-
-
+            }
     }
 
 

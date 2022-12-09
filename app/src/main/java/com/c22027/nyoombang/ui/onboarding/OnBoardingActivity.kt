@@ -4,16 +4,11 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
-import android.os.Handler
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.constraintlayout.motion.widget.MotionLayout
+import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.databinding.ActivityOnBoardingBinding
-import com.c22027.nyoombang.helper.SharedPreferencesHelper
 import com.c22027.nyoombang.ui.auth.login.LoginActivity
-import kotlin.math.absoluteValue
 
 class OnBoardingActivity : AppCompatActivity() {
 
