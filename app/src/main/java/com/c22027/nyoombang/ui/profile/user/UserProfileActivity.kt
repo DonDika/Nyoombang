@@ -60,8 +60,9 @@ class UserProfileActivity : AppCompatActivity() {
                                     )
                                 )
                                 .into(civProfile)
-                            edtName.setText(it.data["name"].toString())
-                            edtEmail.setText(it.data["email"].toString())
+                            edtName.text = it.data["name"].toString()
+                            edtEmail.text = it.data["email"].toString()
+                            edtPhoneNumber.text = it.data["phoneNumber"].toString()
 
                         }
                     }
