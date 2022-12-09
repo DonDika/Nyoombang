@@ -25,6 +25,11 @@ object Utilization {
         val numberFormat: NumberFormat = DecimalFormat("####")
         return numberFormat.format(number)
     }
+
+    fun amountDonationFormat(number: Int): String{
+        val numberFormat: NumberFormat = DecimalFormat("#,###")
+        return numberFormat.format(number)
+    }
     
         //Implement here
 //    fun formatDate(currentDateString: String, targetTimeZone: String): String {

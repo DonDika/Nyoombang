@@ -45,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-        //init()
+        init()
     }
 
     private fun init(){

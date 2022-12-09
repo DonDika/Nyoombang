@@ -6,28 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.login.LoginActivity">
 
+    <ImageView
+        android:id="@+id/img_item_photo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/nyoombang_logo"
+        android:contentDescription="@string/img_splashscreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_email"
         style="@style/TextInputLayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="24dp"
         android:hint="@string/email"
         android:textColorHint="@color/color1"
         app:boxStrokeColor="@color/mtrl_edt_color_state"
-        app:hintTextColor="@color/color1"
         app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/img_item_photo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_email"
             style="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:inputType = "textEmailAddress"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +52,6 @@
         app:boxStrokeColor="@color/mtrl_edt_color_state"
         app:endIconMode="password_toggle"
         app:hintTextColor="@color/color1"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email">
@@ -58,17 +66,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="211dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/forgot_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.229"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
@@ -77,20 +74,22 @@
         android:layout_marginTop="100dp"
         android:text="@string/login"
         android:enabled="false"
+        android:gravity="center"
+        android:textColor="@color/color4"
+        style="@style/MaterialButtonStyle"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
     <TextView
         android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/sign_up_here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/Text"
+        app:layout_constraintEnd_toEndOf="@+id/login_button"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

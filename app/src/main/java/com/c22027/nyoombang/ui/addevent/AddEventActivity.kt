@@ -25,25 +25,35 @@ import java.util.*
 
 class AddEventActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddEventBinding
+    private val binding by lazy { ActivityAddEventBinding.inflate(layoutInflater) }
+    private val fireStore by lazy { Firebase.firestore}
+    private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
+
     private val addEventViewModel by viewModels<AddEventViewModel>()
     private var getFile: Uri? = null
 
-    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
-    private val db by lazy { Firebase.firestore}
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+            getFile = selectedImg
+            val myFile = uriToFile(selectedImg, this@AddEventActivity)
+            binding.imgPreviewImageView.setImageURI(selectedImg)
+            addEventViewModel.statePhoto(myFile)
+            Log.d("test","$getFile dan ${addEventViewModel.photo.value.toString()}")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        sharedPreferencesHelper = SharedPreferencesHelper(this)
 
         init()
     }
 
     private fun init(){
-
         with(binding){
 
             addEventViewModel.btnAdd.observe(this@AddEventActivity){
@@ -113,54 +123,50 @@ class AddEventActivity : AppCompatActivity() {
     }
 
 
-    private val launcherIntentGallery = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val selectedImg: Uri = result.data?.data as Uri
-            getFile = selectedImg
-            val myFile = uriToFile(selectedImg, this@AddEventActivity)
-            binding.imgPreviewImageView.setImageURI(selectedImg)
-            addEventViewModel.statePhoto(myFile)
-            Log.d("test","$getFile dan ${addEventViewModel.photo.value.toString()}")
-        }
-    }
-
     private fun addEvent() {
         binding.apply {
-            val userId = sharedPreferencesHelper.prefUid
+            val userId = sharedPreferences.prefUid
             val eventName = edtName.text.toString()
             val descriptionEvent = edtDescription.text.toString()
             val endOfDate = addEventViewModel.date.value.toString()
-            val key = db.collection("Event").document().id
+            val key = fireStore.collection("Event").document().id
 
-            val uploadRef =
-                FirebaseStorage.getInstance().getReference("/EventPicture/${getFile?.lastPathSegment}")
+            val uploadRef = FirebaseStorage.getInstance().getReference("/EventPicture/${getFile?.lastPathSegment}")
             uploadRef.putFile(getFile!!).addOnSuccessListener {
                 uploadRef.downloadUrl.addOnSuccessListener {
                     val eventDataClass = EventDataClass(
-                        key,
-                        userId,
-                        eventName,
-                        it.toString(),
-                        descriptionEvent,
-                        endOfDate,
-                        "0"
+                        eventId = key,
+                        userId = userId!!,
+                        userName = "Udin",
+                        eventName = eventName,
+                        eventPicture = it.toString(),
+                        eventDescription = descriptionEvent,
+                        endOfDate = endOfDate,
+                        totalAmount = 0
                     )
-                db.collection("Event").document(key).set(eventDataClass).addOnCompleteListener {
-                    if (it.isSuccessful){
-                        Toast.makeText(this@AddEventActivity,"Event Berhasil Ditambahkan",Toast.LENGTH_SHORT).show()
+                    fireStore.collection("Event")
+                        .document(key)
+                        .set(eventDataClass)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(
+                                    this@AddEventActivity,
+                                    "Event Berhasil Ditambahkan",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                            /*.add(eventDataClass)
+                            .addOnSuccessListener {
+                                Toast.makeText(this@AddEventActivity, "Campaign berhasil ditambahkan! ", Toast.LENGTH_SHORT).show()
+                                //finish()
+                            }*/
+
                     }
-                }
-
-                }
-
             }.addOnFailureListener {
-                Toast.makeText(this@AddEventActivity, it.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@AddEventActivity, it.message.toString(), Toast.LENGTH_SHORT).show()
                 Log.d("failed", "failed${getFile?.path} ")
                 Log.d("failed", it.message.toString())
-
             }
 
         }

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityDashboardBinding
+import com.c22027.nyoombang.databinding.ActivityUserHistoryBinding
 import com.c22027.nyoombang.ui.details.DetailsEventActivity
+import com.c22027.nyoombang.ui.profile.user.UserHistoryActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -13,7 +15,6 @@ class DashboardActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDashboardBinding.inflate(layoutInflater) }
     private val fireStore by lazy { Firebase.firestore}
-    //private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
     private lateinit var eventAdapter: EventAdapter
 
 
@@ -34,23 +35,25 @@ class DashboardActivity : AppCompatActivity() {
 
 
     private fun setupListener() {
-
+        binding.fabUser.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity, UserHistoryActivity::class.java))
+        }
 
     }
 
     private fun setupAdapter() {
         eventAdapter = EventAdapter(this@DashboardActivity,arrayListOf(), object : EventAdapter.AdapterListener {
-            override fun onClick(campaign: EventDataClass) {
-                showSelectedEvent(campaign)
+            override fun onClick(eventData: EventDataClass) {
+                showSelectedEvent(eventData)
 
             }
         })
-        binding.rvUsers.adapter =eventAdapter
+        binding.rvUsers.adapter = eventAdapter
     }
 
     private fun showSelectedEvent(eventDataClass: EventDataClass){
         intent = Intent(this@DashboardActivity, DetailsEventActivity::class.java)
-        intent.putExtra(DetailsEventActivity.EXTRA_EVENT,eventDataClass.event_id)
+        intent.putExtra(DetailsEventActivity.EXTRA_EVENT, eventDataClass)
         startActivity(intent)
     }
 
@@ -63,13 +66,14 @@ class DashboardActivity : AppCompatActivity() {
                     val document = task.result
                     document.forEach {
                         val eventData = EventDataClass(
-                            it.data["event_id"].toString(),
-                            it.data["user_id"].toString(),
-                            it.data["eventName"].toString(),
-                            it.data["eventPicture"].toString(),
-                            it.data["eventDescription"].toString(),
-                            it.data["endOfDate"].toString(),
-                            it.data["totalAmount"].toString()
+                            eventId = it.data["eventId"].toString(),
+                            userId = it.data["userId"].toString(),
+                            userName = it.data["userName"].toString(),
+                            eventName = it.data["eventName"].toString(),
+                            eventPicture = it.data["eventPicture"].toString(),
+                            eventDescription = it.data["eventDescription"].toString(),
+                            endOfDate = it.data["endOfDate"].toString(),
+                            totalAmount = it.data["totalAmount"].toString().toInt()
                         )
                         events.add(eventData)
                     }

@@ -125,6 +125,11 @@ class LoginActivity : AppCompatActivity() {
                             sharedPreferences.prefStatus = true
                             sharedPreferences.prefLevel = it.data["role"].toString()
                             sharedPreferences.prefUid = it.data["user_id"].toString()
+                            sharedPreferences.prefUsername = it.data["name"].toString()
+                            sharedPreferences.prefPhone = it.data["phoneNumber"].toString()
+                            sharedPreferences.prefEmail = it.data["email"].toString()
+
+
                             if (it.data["role"].toString().equals("User")) {
                                 intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                                 startActivity(intent)
