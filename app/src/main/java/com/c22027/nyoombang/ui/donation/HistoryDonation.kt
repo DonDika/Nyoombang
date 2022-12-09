@@ -1,32 +1,46 @@
-package com.c22027.nyoombang.ui.profile.user
+package com.c22027.nyoombang.ui.donation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.data.model.UserTransaction
 import com.c22027.nyoombang.databinding.ActivityUserHistoryBinding
+import com.c22027.nyoombang.databinding.FragmentHistoryDonationBinding
+import com.c22027.nyoombang.ui.profile.user.UserHistoryAdapter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class UserHistoryActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityUserHistoryBinding.inflate(layoutInflater) }
+class HistoryDonation : Fragment() {
+    private var _binding: FragmentHistoryDonationBinding? = null
+    private val binding get() = _binding!!
     private val fireStore by lazy { Firebase.firestore }
-    private val sharedPreferences by lazy { SharedPreferencesHelper(this) }
+    private val sharedPreferences by lazy { SharedPreferencesHelper(requireContext()) }
 
     private lateinit var userHistoryAdapter: UserHistoryAdapter
 
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding =FragmentHistoryDonationBinding.inflate(inflater,container,false)
+        return binding.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupListener()
         getHistoryUserTransaction()
     }
-
 
     private fun setupAdapter() {
         userHistoryAdapter = UserHistoryAdapter(arrayListOf())
@@ -66,10 +80,17 @@ class UserHistoryActivity : AppCompatActivity() {
                 //tampilkan di recycler view
                 userHistoryAdapter.setData(transactions)
             }
+        userHistoryAdapter.setData(transactions)
+
 
 
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupAdapter()
+        getHistoryUserTransaction()
+    }
 
 }

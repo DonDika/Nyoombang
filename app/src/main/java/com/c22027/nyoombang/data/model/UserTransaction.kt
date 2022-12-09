@@ -11,4 +11,5 @@ data class UserTransaction(
     val amount: String,
     val status: String,
     val transactionTime: String,
+    val transactionDate: String
 )

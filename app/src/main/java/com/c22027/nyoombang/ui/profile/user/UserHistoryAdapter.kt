@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.c22027.nyoombang.data.model.UserTransaction
-import com.c22027.nyoombang.databinding.ItemListHistoryBinding
+import com.c22027.nyoombang.databinding.DonationItemLayoutBinding
+
 import com.c22027.nyoombang.utils.Utilization
 
 class UserHistoryAdapter(
@@ -19,24 +20,25 @@ class UserHistoryAdapter(
     }
 
 
-    inner class ViewHolder(val binding: ItemListHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: DonationItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemListHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DonationItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val userData = userTransaction[position]
         holder.binding.apply {
-            tvCampaignName.text = userData.eventName
+            tvEventName.text = userData.eventName
             val formatAmount = Utilization.amountDonationFormat(userData.amount.toInt())
             tvAmount.text = "Rp. $formatAmount"
-            tvStatus.text = "Done"
+            tvStatus.text = userData.status
+            tvDate.text = userData.transactionDate
             tvTime.text = userData.transactionTime
         }
 
