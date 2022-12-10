@@ -119,16 +119,13 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
             tvCampaignName.text = eventDataClass.eventName
             tvUserName.text = eventDataClass.userName
             tvUserDate.text = eventDataClass.endOfDate
-            tvCampaignDescription.text = eventDataClass.eventDescription
+            tvCampaignDescription.setText(eventDataClass.eventDescription)
             tvUserName.setOnClickListener {
                 intent = Intent(this@DetailsEventActivity,CommunityProfileActivity::class.java)
                 intent.putExtra(CommunityProfileActivity.EXTRA_ID,eventDataClass.userId)
                 startActivity(intent)
             }
-
         }
-
-
     }
 
     //worst scenario if cannot hit API
