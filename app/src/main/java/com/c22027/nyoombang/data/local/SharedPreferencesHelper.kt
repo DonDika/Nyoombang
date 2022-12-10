@@ -17,6 +17,7 @@ class SharedPreferencesHelper(context: Context) {
         get() = preferences.getString(Constant.PREF_USERNAME, "")
         set(value) = preferences.edit().putString(Constant.PREF_USERNAME, value).apply()
 
+
     var prefStatus: Boolean
         get() = preferences.getBoolean(Constant.PREF_IS_LOGIN, false)
         set(value) = preferences.edit().putBoolean(Constant.PREF_IS_LOGIN, value).apply()
@@ -59,6 +60,11 @@ class SharedPreferencesHelper(context: Context) {
     fun prefClear(){
         preferences.edit().remove(Constant.PREF_IS_LOGIN).apply()
         preferences.edit().remove(Constant.PREF_LEVEL).apply()
+        preferences.edit().remove(Constant.PREF_USERNAME).apply()
+        preferences.edit().remove(Constant.PREF_PHONE).apply()
+        preferences.edit().remove(Constant.PREF_UID).apply()
+        preferences.edit().remove(Constant.PREF_EMAIL).apply()
+
     }
 
     fun clearOrderId(){

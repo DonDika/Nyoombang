@@ -10,6 +10,7 @@
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_add.xml" value="0.276" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.276" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.3675" />
+        <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.317" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.3675" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.3675" />
         <entry key="..\:/Nyoombang/app/src/main/res/drawable/ic_launcher_background.xml" value="0.276" />
@@ -21,10 +22,11 @@
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_dashboard.xml" value="0.33605072463768115" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_dashboard_community.xml" value="0.33605072463768115" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_detail.xml" value="0.33605072463768115" />
-        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_details_event.xml" value="0.11374407582938388" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_details_event.xml" value="0.22" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_donation.xml" value="0.25" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_donation_history.xml" value="0.22" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_edit_community.xml" value="0.33559782608695654" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_edit_delete_event.xml" value="0.33" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_edit_donation.xml" value="0.34193840579710144" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_edit_user.xml" value="0.33559782608695654" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/activity_home.xml" value="0.33605072463768115" />
@@ -40,9 +42,12 @@
         <entry key="..\:/Nyoombang/app/src/main/res/layout/donation_item_layout.xml" value="0.33559782608695654" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/donation_list.xml" value="0.22" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/fragment_history_donation.xml" value="0.34791666666666665" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/item_list_history.xml" value="0.3619791666666667" />
-        <entry key="..\:/Nyoombang/app/src/main/res/layout/items_campaign.xml" value="0.33605072463768115" />
+        <entry key="..\:/Nyoombang/app/src/main/res/layout/items_campaign.xml" value="0.33" />
         <entry key="..\:/Nyoombang/app/src/main/res/layout/list_item.xml" value="1.1" />
+        <entry key="..\:/Nyoombang/app/src/main/res/menu/logout.xml" value="0.365625" />
+        <entry key="..\:/Nyoombang/app/src/main/res/menu/menu.xml" value="0.365625" />
       </map>
     </option>
   </component>

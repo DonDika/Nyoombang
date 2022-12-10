@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
@@ -16,6 +17,7 @@ import com.c22027.nyoombang.data.remote.ApiConfig
 import com.c22027.nyoombang.databinding.ActivityDetailsEventBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.data.model.EventDataClass
+import com.c22027.nyoombang.ui.dashboard.DashboardCommunity
 import com.c22027.nyoombang.ui.profile.community.CommunityProfileActivity
 import com.c22027.nyoombang.utils.Constant
 import com.c22027.nyoombang.utils.Utilization
@@ -31,6 +33,7 @@ import com.midtrans.sdk.corekit.models.snap.Gopay
 import com.midtrans.sdk.corekit.models.snap.Shopeepay
 import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
+import kotlinx.android.synthetic.main.activity_on_boarding.*
 import kotlinx.android.synthetic.main.dialog_payment.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,7 +64,7 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         setupListener()
         initMidtransSdk()
         getAmountTransactionDonation()
-
+        eventDataClass = intent.getParcelableExtra<EventDataClass>(EXTRA_EVENT) as EventDataClass
 
     }
 
@@ -74,6 +77,9 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
     private fun setupListener() {
         binding.bayarDonasi.setOnClickListener {
             setupDialogPayment()
+        }
+        binding.btnDelete.setOnClickListener {
+            deleteEvent()
         }
         binding.refreshData.setOnRefreshListener {
             //updateTransaction()
@@ -215,6 +221,13 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                 binding.tvAmount.text = "Rp. $formatAmount"
             }
     }
+    private fun deleteEvent(){
+        fireStore.collection("Event").document(eventDataClass.eventId).delete().addOnSuccessListener {
+            startActivity(Intent(this@DetailsEventActivity, DashboardCommunity::class.java))
+            finish()
+            Toast.makeText(this@DetailsEventActivity, "Event Berhasil Dihapus",Toast.LENGTH_SHORT).show()
+        }
+    }
 
     //update amount in Event
     private fun updateAmountDonation(){
@@ -304,6 +317,19 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         updateAmountDonation()
         getAmountTransactionDonation()
     }
+
+    override fun onStart() {
+        super.onStart()
+        if (sharedPreferences.prefLevel.equals("User")){
+            binding.bayarDonasi.visibility = View.VISIBLE
+            binding.btnDelete.visibility = View.GONE
+        }else if (sharedPreferences.prefLevel.equals("Community")){
+            binding.bayarDonasi.visibility = View.GONE
+            binding.btnDelete.visibility = View.VISIBLE
+        }
+    }
+
+
 
 
 

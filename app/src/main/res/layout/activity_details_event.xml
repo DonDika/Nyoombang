@@ -158,6 +158,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Hapus"
+                android:visibility= "gone"
+                style="@style/MaterialButtonStyle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

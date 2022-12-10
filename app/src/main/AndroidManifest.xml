@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Nyoombang"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.profile.user.UserHistoryActivity"
             android:exported="false">
@@ -22,9 +23,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.details.CommunityDetailsActivity"
-            android:exported="false" />
+        <activity android:name=".ui.dashboard.DashboardCommunity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.profile.user.EditUserActivity"
             android:exported="false" />
@@ -112,6 +116,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>

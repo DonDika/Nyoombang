@@ -3,11 +3,14 @@ package com.c22027.nyoombang.ui.auth.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import com.c22027.nyoombang.databinding.ActivityLoginBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
@@ -15,6 +18,7 @@ import com.c22027.nyoombang.R
 import com.c22027.nyoombang.ui.addevent.AddEventActivity
 import com.c22027.nyoombang.ui.auth.register.RegisterActivity
 import com.c22027.nyoombang.ui.dashboard.DashboardActivity
+import com.c22027.nyoombang.ui.dashboard.DashboardCommunity
 import com.c22027.nyoombang.ui.profile.user.UserProfileActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -31,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
+        setupView()
         setupListener()
     }
 
@@ -43,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else if(sharedPreferences.prefLevel.equals("Community")){
-            intent = Intent(this@LoginActivity, AddEventActivity::class.java)
+            intent = Intent(this@LoginActivity, DashboardCommunity::class.java)
             startActivity(intent)
             finish()
         }
@@ -132,12 +136,12 @@ class LoginActivity : AppCompatActivity() {
 
 
                             if (it.data["role"].toString().equals("User")) {
-                                intent = Intent(this@LoginActivity,UserProfileActivity::class.java)
+                                intent = Intent(this@LoginActivity,DashboardActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             } else if (it.data["role"].toString().equals("Community")) {
                                 intent =
-                                    Intent(this@LoginActivity, AddEventActivity::class.java)
+                                    Intent(this@LoginActivity, DashboardCommunity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -157,6 +161,22 @@ class LoginActivity : AppCompatActivity() {
                     .matches()
         }
     }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
+    }
+
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.c22027.nyoombang.ui.profile.community
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,9 @@ import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityCommunityProfileBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.auth.login.LoginActivity
+import com.c22027.nyoombang.ui.dashboard.DashboardActivity
+import com.c22027.nyoombang.ui.dashboard.DashboardCommunity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -129,6 +134,24 @@ class CommunityProfileActivity : AppCompatActivity() {
         }else{
             binding.edit.visibility = View.VISIBLE
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.logout, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        startActivity(Intent(this@CommunityProfileActivity, LoginActivity::class.java))
+        finish()
+        preferences.prefClear()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@CommunityProfileActivity, DashboardCommunity::class.java))
+        finish()
+        super.onBackPressed()
     }
 
     companion object{
