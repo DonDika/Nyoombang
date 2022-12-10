@@ -148,7 +148,7 @@ class CommunityProfileActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
- 
+
 
     companion object{
         const val EXTRA_ID = "extra id"
