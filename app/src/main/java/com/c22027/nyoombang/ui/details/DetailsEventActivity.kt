@@ -56,7 +56,7 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val formatterDate = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+        val formatterDate = DateTimeFormatter.ofPattern("dd/MMMM/yyyy")
         val formatterTime = DateTimeFormatter.ofPattern("HH:mm")
         currentTime = LocalDateTime.now().format(formatterTime).toString()
         currentDate = LocalDateTime.now().format(formatterDate).toString()

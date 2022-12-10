@@ -129,6 +129,8 @@ class EditUserActivity : AppCompatActivity() {
                     )
 
                     db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
+                        sharedPreferencesHelper.prefUsername = name
+                        sharedPreferencesHelper.prefPhone = phoneNumber
                         Toast.makeText(this@EditUserActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
                         intent = Intent(this@EditUserActivity, UserProfileActivity::class.java)
                         startActivity(intent)
