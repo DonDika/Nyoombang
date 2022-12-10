@@ -141,7 +141,6 @@ class CommunityProfileActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         startActivity(Intent(this@CommunityProfileActivity, LoginActivity::class.java))
         finish()
         preferences.prefClear()
