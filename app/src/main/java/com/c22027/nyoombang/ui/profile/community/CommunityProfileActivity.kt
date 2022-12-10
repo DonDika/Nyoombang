@@ -148,11 +148,7 @@ class CommunityProfileActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
-        startActivity(Intent(this@CommunityProfileActivity, DashboardCommunity::class.java))
-        finish()
-        super.onBackPressed()
-    }
+ 
 
     companion object{
         const val EXTRA_ID = "extra id"
