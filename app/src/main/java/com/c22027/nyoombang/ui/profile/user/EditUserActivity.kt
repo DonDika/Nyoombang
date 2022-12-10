@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.databinding.ActivityEditUserBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
@@ -53,10 +54,10 @@ class EditUserActivity : AppCompatActivity() {
                 val name = snapshot.data!!["name"].toString()
                 val phoneNumber = snapshot.data!!["phoneNumber"].toString()
                 val picture = snapshot.data!!["picture"].toString()
-
                 binding.edtName.setText(name)
                 binding.edtPhoneNumber.setText(phoneNumber)
                 Glide.with(this).load(picture).into(circleImageView)
+
             }
         }
     }
@@ -104,29 +105,47 @@ class EditUserActivity : AppCompatActivity() {
         val name = binding.edtName.text.toString()
         val phoneNumber = binding.edtPhoneNumber.text.toString()
         val date = currentDate.toString()
-        val uploadRef = FirebaseStorage.getInstance().getReference("/UserPhotoPicture/$user+_+$date")
-        uploadRef.putFile(filePath!!).addOnSuccessListener {
-            uploadRef.downloadUrl.addOnSuccessListener {
-                val updateUser = mapOf<String,String>(
-                    "name" to name,
-                    "picture" to it.toString(),
-                    "phoneNumber" to phoneNumber
-                )
+        if (filePath ==null){
+            val updateUser = mapOf<String,String>(
+                "name" to name,
+                "phoneNumber" to phoneNumber
+            )
 
-                db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
-                    Toast.makeText(this@EditUserActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
-                    intent = Intent(this@EditUserActivity, UserProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
+            db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
+                Toast.makeText(this@EditUserActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
+                intent = Intent(this@EditUserActivity, UserProfileActivity::class.java)
+                startActivity(intent)
+                finish()
 
-                }
             }
+        }else{
+            val uploadRef = FirebaseStorage.getInstance().getReference("/UserPhotoPicture/$user+_+$date")
+            uploadRef.putFile(filePath!!).addOnSuccessListener {
+                uploadRef.downloadUrl.addOnSuccessListener {
+                    val updateUser = mapOf<String,String>(
+                        "name" to name,
+                        "picture" to it.toString(),
+                        "phoneNumber" to phoneNumber
+                    )
 
-        }.addOnFailureListener{
-            Toast.makeText(this@EditUserActivity, it.message.toString() , Toast.LENGTH_SHORT).show()
-            Log.d("failed","failed${filePath?.path} ")
-            Log.d("failed",it.message.toString())
+                    db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
+                        sharedPreferencesHelper.prefUsername = name
+                        sharedPreferencesHelper.prefPhone = phoneNumber
+                        Toast.makeText(this@EditUserActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
+                        intent = Intent(this@EditUserActivity, UserProfileActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
+                    }
+                }
+
+            }.addOnFailureListener{
+                Toast.makeText(this@EditUserActivity, it.message.toString() , Toast.LENGTH_SHORT).show()
+                Log.d("failed","failed${filePath?.path} ")
+                Log.d("failed",it.message.toString())
+
+            }
         }
+
     }
 }

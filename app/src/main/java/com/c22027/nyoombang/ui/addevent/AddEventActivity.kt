@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityAddEventBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
+import com.c22027.nyoombang.ui.dashboard.DashboardCommunity
 
 import com.c22027.nyoombang.utils.Utilization.uriToFile
 
@@ -51,6 +52,15 @@ class AddEventActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
+    }
+    private fun generateKeywords(name: String): List<String> {
+        val keywords = mutableListOf<String>()
+        for (i in name.indices) {
+            for (j in (i+1)..name.length) {
+                keywords.add(name.slice(i until j))
+            }
+        }
+        return keywords
     }
 
     private fun init(){
@@ -142,13 +152,16 @@ class AddEventActivity : AppCompatActivity() {
                         eventPicture = it.toString(),
                         eventDescription = descriptionEvent,
                         endOfDate = endOfDate,
-                        totalAmount = 0
+                        totalAmount = 0,
+                        keyword = generateKeywords(eventName)
                     )
                     fireStore.collection("Event")
                         .document(key)
                         .set(eventDataClass)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                startActivity(Intent(this@AddEventActivity,DashboardCommunity::class.java))
+                                    finish()
                                 Toast.makeText(
                                     this@AddEventActivity,
                                     "Event Berhasil Ditambahkan",
@@ -177,4 +190,5 @@ class AddEventActivity : AppCompatActivity() {
             btnAdd.isEnabled = state
         }
     }
+
 }

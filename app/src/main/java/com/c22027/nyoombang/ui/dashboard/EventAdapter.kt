@@ -40,6 +40,8 @@ class EventAdapter (
             tvCampaignName.text = event.eventName
             val formatAmount = Utilization.amountDonationFormat(event.totalAmount!!)
             tvAmountCampaign.text = "Rp. $formatAmount"
+            tvUsername.text = event.userName
+            tvCampaignDate.text = event.endOfDate
             Log.d("eventError",event.eventPicture.toString())
 
             container.setOnClickListener {

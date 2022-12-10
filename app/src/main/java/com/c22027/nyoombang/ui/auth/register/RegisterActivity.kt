@@ -2,10 +2,13 @@ package com.c22027.nyoombang.ui.auth.register
 
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -43,8 +46,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         }*/
 
-
-
+        setupView()
         init()
     }
 
@@ -196,5 +198,17 @@ class RegisterActivity : AppCompatActivity() {
         with(binding){
             btnRegister.isEnabled = state
         }
+    }
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }

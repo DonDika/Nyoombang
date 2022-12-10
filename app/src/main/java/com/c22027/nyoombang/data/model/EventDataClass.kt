@@ -13,5 +13,6 @@ data class EventDataClass(
     val eventPicture: String? = null,
     val eventDescription: String,
     val endOfDate: String,
-    val totalAmount: Int? = 0
+    val totalAmount: Int? = 0,
+    val keyword: List<String>
 ): Parcelable

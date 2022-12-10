@@ -2,6 +2,8 @@ package com.c22027.nyoombang.ui.profile.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +13,9 @@ import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityUserProfileBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.c22027.nyoombang.data.model.UserTransaction
+import com.c22027.nyoombang.databinding.ActivityLoginBinding
+import com.c22027.nyoombang.ui.auth.login.LoginActivity
+import com.c22027.nyoombang.ui.dashboard.DashboardActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -60,8 +65,9 @@ class UserProfileActivity : AppCompatActivity() {
                                     )
                                 )
                                 .into(civProfile)
-                            edtName.setText(it.data["name"].toString())
-                            edtEmail.setText(it.data["email"].toString())
+                            edtName.text = it.data["name"].toString()
+                            edtEmail.text = it.data["email"].toString()
+                            edtPhoneNumber.text = it.data["phoneNumber"].toString()
 
                         }
                     }
@@ -69,6 +75,25 @@ class UserProfileActivity : AppCompatActivity() {
 
         }
 
+
 }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.logout, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        startActivity(Intent(this@UserProfileActivity, LoginActivity::class.java))
+        finish()
+        preferences.prefClear()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@UserProfileActivity, DashboardActivity::class.java))
+        finish()
+        super.onBackPressed()
+    }
 
 }

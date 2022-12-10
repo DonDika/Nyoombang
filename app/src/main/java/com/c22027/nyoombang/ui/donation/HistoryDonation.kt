@@ -59,7 +59,7 @@ class HistoryDonation : Fragment() {
         val transactions: ArrayList<UserTransaction> = arrayListOf()
         //get transaction data from firestore
         fireStore.collection("Transaction")
-            .whereEqualTo("userId", sharedPreferences.prefUid.toString())
+            .whereEqualTo("userId", sharedPreferences.prefUid.toString()).limit(2)
             .get()
             .addOnSuccessListener { result ->
                 result.forEach { doc ->

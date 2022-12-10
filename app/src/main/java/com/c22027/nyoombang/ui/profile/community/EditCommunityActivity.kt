@@ -107,33 +107,57 @@ class EditCommunityActivity : AppCompatActivity() {
         val twitter = binding.edtTwitter.text.toString()
         val facebook = binding.edtFb.text.toString()
         val date = currentDate.toString()
-        val uploadRef = FirebaseStorage.getInstance().getReference("/UserPhotoPicture/$user+_+$date")
-        uploadRef.putFile(filePath!!).addOnSuccessListener {
-            uploadRef.downloadUrl.addOnSuccessListener {
-                val updateUser = mapOf<String,String>(
-                    "name" to name,
-                    "phoneNumber" to phoneNumber,
-                    "description" to description,
-                    "instagram" to instagram,
-                    "twitter" to twitter,
-                    "facebook" to facebook,
-                    "picture" to it.toString()
-                )
+        if (filePath == null){
+            val updateUser = mapOf<String,String>(
+                "name" to name,
+                "phoneNumber" to phoneNumber,
+                "description" to description,
+                "instagram" to instagram,
+                "twitter" to twitter,
+                "facebook" to facebook,
 
-               db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
-                    Toast.makeText(this@EditCommunityActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
-                    intent = Intent(this@EditCommunityActivity, CommunityProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
+            )
 
-                }
+            db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
+                sharedPreferencesHelper.prefUsername = name
+                sharedPreferencesHelper.prefPhone = phoneNumber
+                Toast.makeText(this@EditCommunityActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
+                intent = Intent(this@EditCommunityActivity, CommunityProfileActivity::class.java)
+                intent.putExtra(CommunityProfileActivity.EXTRA_ID, sharedPreferencesHelper.prefUid.toString())
+                startActivity(intent)
+                finish()
+
             }
+        }else{
+            val uploadRef = FirebaseStorage.getInstance().getReference("/UserPhotoPicture/$user+_+$date")
+            uploadRef.putFile(filePath!!).addOnSuccessListener {
+                uploadRef.downloadUrl.addOnSuccessListener {
+                    val updateUser = mapOf<String,String>(
+                        "name" to name,
+                        "phoneNumber" to phoneNumber,
+                        "description" to description,
+                        "instagram" to instagram,
+                        "twitter" to twitter,
+                        "facebook" to facebook,
+                        "picture" to it.toString()
+                    )
 
-        }.addOnFailureListener{
-            Toast.makeText(this@EditCommunityActivity, it.message.toString() , Toast.LENGTH_SHORT).show()
-            Log.d("failed","failed${filePath?.path} ")
-            Log.d("failed",it.message.toString())
+                    db.collection("UsersProfile").document(user).update(updateUser).addOnSuccessListener {
+                        Toast.makeText(this@EditCommunityActivity,"Berhasil di update", Toast.LENGTH_SHORT).show()
+                        intent = Intent(this@EditCommunityActivity, CommunityProfileActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
+                    }
+                }
+
+            }.addOnFailureListener{
+                Toast.makeText(this@EditCommunityActivity, it.message.toString() , Toast.LENGTH_SHORT).show()
+                Log.d("failed","failed${filePath?.path} ")
+                Log.d("failed",it.message.toString())
+
+            }
         }
+
     }
 }
