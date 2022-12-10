@@ -24,6 +24,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".ui.dashboard.DashboardCommunity"
+            android:theme="@style/Theme.Nyoombang.ActionBar"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -40,6 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
+            android:theme="@style/Theme.Nyoombang.ActionBar"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -61,6 +63,7 @@
         </activity>
         <activity
             android:name=".ui.profile.user.UserProfileActivity"
+            android:theme="@style/Theme.Nyoombang.ActionBar"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -68,6 +71,7 @@
         </activity>
         <activity
             android:name=".ui.profile.community.CommunityProfileActivity"
+            android:theme="@style/Theme.Nyoombang.ActionBar"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
