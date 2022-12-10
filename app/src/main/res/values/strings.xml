@@ -70,11 +70,11 @@
     <string name="status">Status</string>
 
     <string name="plc_preview_image">preview_image</string>
-    <string name="edt_hint_description">description</string>
+    <string name="edt_hint_description">Deskripsi</string>
     <string name="date_picker">--/--/--</string>
-    <string name="btn_add">Add</string>
+    <string name="btn_add">Tambah</string>
     <string name="img_splashscreen">splashScreen</string>
-    <string name="event_name">Event Name</string>
+    <string name="event_name">Nama Event</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_edit_delete_event">EditDeleteEvent</string>

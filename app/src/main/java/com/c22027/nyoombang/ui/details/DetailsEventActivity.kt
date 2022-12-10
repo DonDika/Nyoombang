@@ -82,8 +82,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
             deleteEvent()
         }
         binding.refreshData.setOnRefreshListener {
-            //updateTransaction()
-            worstScenario()
+            updateTransaction()
+//            worstScenario()
             getAmountTransactionDonation()
             updateAmountDonation()
             binding.refreshData.isRefreshing = false
@@ -309,8 +309,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                 Toast.makeText(this, "Transaction Finished with Failure.", Toast.LENGTH_SHORT).show()
             }
         }
-        //updateTransaction()
-        worstScenario()
+        updateTransaction()
+//        worstScenario()
         updateAmountDonation()
         getAmountTransactionDonation()
     }

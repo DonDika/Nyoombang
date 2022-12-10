@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
         setupView()
         setupListener()
+        showLoading(false)
     }
 
     override fun onStart() {
@@ -133,15 +135,14 @@ class LoginActivity : AppCompatActivity() {
                             sharedPreferences.prefUsername = it.data["name"].toString()
                             sharedPreferences.prefPhone = it.data["phoneNumber"].toString()
                             sharedPreferences.prefEmail = it.data["email"].toString()
-
-
-                            if (it.data["role"].toString().equals("User")) {
+                            if (it.data["role"].toString() == "User") {
+                                showLoading(true)
                                 intent = Intent(this@LoginActivity,DashboardActivity::class.java)
                                 startActivity(intent)
                                 finish()
-                            } else if (it.data["role"].toString().equals("Community")) {
-                                intent =
-                                    Intent(this@LoginActivity, DashboardCommunity::class.java)
+                            } else if (it.data["role"].toString() == "Community") {
+                                showLoading(true)
+                                intent = Intent(this@LoginActivity, DashboardCommunity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -151,7 +152,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.pgLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
     private fun setButtonEnable() {
         binding.apply {
             val password = edtPassword.text
