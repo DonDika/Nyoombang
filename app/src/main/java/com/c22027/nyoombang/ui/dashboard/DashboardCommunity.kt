@@ -108,7 +108,9 @@ class DashboardCommunity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        startActivity(Intent(this@DashboardCommunity, CommunityProfileActivity::class.java))
+        intent = Intent(this@DashboardCommunity,CommunityProfileActivity::class.java)
+        intent.putExtra(CommunityProfileActivity.EXTRA_ID,sharedPreferences.prefUid)
+        startActivity(intent)
         finish()
         return super.onOptionsItemSelected(item)
     }
