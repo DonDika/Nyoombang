@@ -1,5 +1,6 @@
 package com.c22027.nyoombang.ui.details
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
 import com.c22027.nyoombang.data.model.TransactionResponse
@@ -40,6 +42,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 
 class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
@@ -56,7 +59,7 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val formatterDate = DateTimeFormatter.ofPattern("dd/MMMM/yyyy")
+        val formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val formatterTime = DateTimeFormatter.ofPattern("HH:mm")
         currentTime = LocalDateTime.now().format(formatterTime).toString()
         currentDate = LocalDateTime.now().format(formatterDate).toString()
@@ -82,8 +85,8 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
             deleteEvent()
         }
         binding.refreshData.setOnRefreshListener {
-            //updateTransaction()
-            worstScenario()
+            updateTransaction()
+//            worstScenario()
             getAmountTransactionDonation()
             updateAmountDonation()
             binding.refreshData.isRefreshing = false
@@ -102,9 +105,9 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         btnPay.setOnClickListener {
             val paymentAmount = dialogBinding.input_price.text.toString()
             if (paymentAmount.isEmpty()) {
-                Toast.makeText(this, "Payment can't null!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Pembayaran tidak boleh kosong!", Toast.LENGTH_SHORT).show()
             } else if (paymentAmount.toDouble() < 10000.0) {
-                Toast.makeText(this, "The minimum payment is RP 10.000", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Mininum pembayaran adalah RP 10.000", Toast.LENGTH_SHORT).show()
             } else {
                 sharedPreferences.inputDonation = paymentAmount //worst scenario
                 MidtransSDK.getInstance().transactionRequest = initTransactionRequest(paymentAmount.toDouble()) //userDetails
@@ -121,16 +124,20 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         binding.apply {
             Glide.with(this@DetailsEventActivity)
                 .load(eventDataClass.eventPicture)
+                .error(ContextCompat.getDrawable(this@DetailsEventActivity, R.drawable.icon_broken_image))
                 .into(imageCampaign)
             tvCampaignName.text = eventDataClass.eventName
             tvUserName.text = eventDataClass.userName
-            tvUserDate.text = eventDataClass.endOfDate
+            tvUserDate.text = Utilization.formatDate(eventDataClass.endOfDate, TimeZone.getDefault().id)
             tvCampaignDescription.setText(eventDataClass.eventDescription)
             tvUserName.setOnClickListener {
                 intent = Intent(this@DetailsEventActivity,CommunityProfileActivity::class.java)
                 intent.putExtra(CommunityProfileActivity.EXTRA_ID,eventDataClass.userId)
                 startActivity(intent)
             }
+
+            // disable bayarDonasi button when event is over
+            bayarDonasi.isEnabled = !Utilization.isTimeOver(eventDataClass.endOfDate)
         }
     }
 
@@ -218,11 +225,22 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
                 binding.tvAmount.text = "Rp. $formatAmount"
             }
     }
+
     private fun deleteEvent(){
-        fireStore.collection("Event").document(eventDataClass.eventId).delete().addOnSuccessListener {
-            startActivity(Intent(this@DetailsEventActivity, DashboardCommunity::class.java))
-            finish()
-            Toast.makeText(this@DetailsEventActivity, "Event Berhasil Dihapus",Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(this@DetailsEventActivity).apply {
+            setTitle("Hapus Event")
+            setMessage("Apakah anda yakin ingin menghapus event ini?")
+            setPositiveButton("Ya") { _, _ ->
+                fireStore.collection("Event").document(eventDataClass.eventId).delete().addOnSuccessListener {
+                    startActivity(Intent(this@DetailsEventActivity, DashboardCommunity::class.java))
+                    finish()
+                    Toast.makeText(this@DetailsEventActivity, "Event berhasil dihapus",Toast.LENGTH_SHORT).show()
+                }
+            }
+            setNegativeButton("Tidak", null)
+            setCancelable(true)
+            create()
+            show()
         }
     }
 
@@ -301,16 +319,16 @@ class DetailsEventActivity : AppCompatActivity(), TransactionFinishedCallback {
         if (result.response != null){
             Toast.makeText(this, "Terima kasih atas donasinya", Toast.LENGTH_LONG).show()
         } else if (result.isTransactionCanceled) {
-            Toast.makeText(this, "Transaction Canceled", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Transaksi dibatalkan", Toast.LENGTH_LONG).show()
         } else {
             if (result.status.equals(TransactionResult.STATUS_INVALID, true)){
-                Toast.makeText(this, "Transaction Invalid", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Transaksi tidak valid", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Transaction Finished with Failure.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Transaksi selesai dengan kegagalan", Toast.LENGTH_SHORT).show()
             }
         }
-        //updateTransaction()
-        worstScenario()
+        updateTransaction()
+//        worstScenario()
         updateAmountDonation()
         getAmountTransactionDonation()
     }
