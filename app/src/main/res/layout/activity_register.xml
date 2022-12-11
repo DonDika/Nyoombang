@@ -13,22 +13,22 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="300dp"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/name"
-        app:hintTextColor="@color/color1"
         android:textColorHint="@color/color_text_subtitle"
         app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_name"
-            android:layout_width="match_parent"
             style="@style/Text"
-            android:maxLines="1"
-            android:inputType = "textEmailAddress"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +157,7 @@
         style="@style/Widget.App.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="32dp"
         android:checked="false"
         app:layout_constraintBottom_toTopOf="@+id/btn_register"

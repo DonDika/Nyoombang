@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/edt_name"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -54,7 +54,7 @@
 
     <EditText
         android:id="@+id/edt_phoneNumber"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -75,7 +75,7 @@
 
     <EditText
         android:id="@+id/edt_description"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -101,7 +101,7 @@
 
     <EditText
         android:id="@+id/edt_ig"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -121,7 +121,7 @@
         android:hint="Insert Your Community Instagram" />
     <EditText
         android:id="@+id/edt_fb"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -142,7 +142,7 @@
 
     <EditText
         android:id="@+id/edt_twitter"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
