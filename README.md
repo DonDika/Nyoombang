@@ -11,8 +11,8 @@
 ## TECH STACK Nyoombang
 
 <img align="left" alt="Kotlin" title="Kotlin" width="21px" src="https://cdn.worldvectorlogo.com/logos/kotlin-2.svg" />
-<img align="left" alt="Firebase" title="Kotlin" width="15px" src="https://cdn.worldvectorlogo.com/logos/firebase-2.svg" />
-<img align="left" alt="Midtrans" title="Kotlin" width="21px" src="https://avatars.githubusercontent.com/u/17001512?s=280&v=4" />
+<img align="left" alt="Firebase" title="Firebase" width="15px" src="https://cdn.worldvectorlogo.com/logos/firebase-2.svg" />
+<img align="left" alt="Midtrans" title="Midtrans" width="21px" src="https://avatars.githubusercontent.com/u/17001512?s=280&v=4" />
 <br>
 <br>
 
