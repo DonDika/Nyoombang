@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+    tools:context=".ui.auth.register.RegisterActivity">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_name"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/name"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_name"
+            style="@style/Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_email"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/email"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Text"
+            android:maxLines="1"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_username"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/no_hp"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Text"
+            android:maxLines="1"
+            android:inputType="phone" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_password"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:endIconMode="password_toggle"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Text"
+            android:maxLines="1"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_confirm_password"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/confirm_password"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:endIconMode="password_toggle"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Text"
+            android:maxLines="1"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_dropdown_role"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/role"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_confirm_password"
+        style="@style/TextInputDropDownLayoutStyle">
+
+        <AutoCompleteTextView
+            android:id="@+id/edt_dropdown_input_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            style="@style/Text"
+            android:labelFor="@id/edt_dropdown_role" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/cbtn_terms_roles"
+        style="@style/Widget.App.CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="32dp"
+        android:checked="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rules"
+        style="@style/Text.Description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="@string/rules"
+        android:textColor="@color/color1"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cbtn_terms_roles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cbtn_terms_roles"
+        app:layout_constraintTop_toTopOf="@+id/cbtn_terms_roles" />
+
+    <TextView
+        android:id="@+id/terms"
+        style="@style/Text.Description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms"
+        android:textColor="@color/color3"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rules"
+        app:layout_constraintStart_toEndOf="@+id/cbtn_terms_roles"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rules" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:textColor="@color/color4"
+        style="@style/MaterialButtonStyle"
+        android:text="@string/register"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+        android:id="@+id/pg_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

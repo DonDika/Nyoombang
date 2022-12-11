@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.addevent.AddEventActivity">
+
+
+    <ImageView
+        android:id="@+id/img_PreviewImageView"
+        android:layout_width="288dp"
+        android:layout_height="136dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_image"
+        android:contentDescription="@string/plc_preview_image" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_name"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:hint="@string/event_name"
+        android:layout_marginTop="52dp"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_PreviewImageView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_name"
+            style="@style/Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_Description"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/edt_hint_description"
+        android:textColorHint="@color/color_text_subtitle"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_description"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:maxLines="8"
+            android:gravity="start"
+            style="@style/Text"
+            android:inputType="textMultiLine" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edt_layout_datePicker"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/date_picker"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:hintTextColor="@color/color1"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
+        app:startIconTint="@color/color1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_layout_Description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_datePicker"
+            style="@style/Text"
+            android:gravity="start"
+            android:focusable="false"
+            android:hint="@string/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_Add"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:textColor="@color/color4"
+        style="@style/MaterialButtonStyle"
+        android:text="@string/btn_add"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pg_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

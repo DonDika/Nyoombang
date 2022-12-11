@@ -1,3 +1,103 @@
 <resources>
     <string name="app_name">Nyoombang</string>
+
+    <!--Login page-->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Lupa Password?</string>
+    <string name="login">Masuk</string>
+    <string name="sign_up_here"><u>Daftar Disini</u></string>
+    <string name="required">*Wajib Diisi</string>
+    <string name="email_error">Alamat email tidak valid</string>
+    <string name="password_error">Password setidaknya harus memiliki panjang 6 karakter</string>
+    <!--Register page-->
+    <string name="name">Nama</string>
+    <string name="username">Username</string>
+    <string name="role">Role</string>
+    <string name="agreement">Dengan mendaftar, Anda setuju dengan syarat dan layanan kami</string>
+    <string name="register">Daftar</string>
+
+    <!--Preview.kt page-->
+    <string name="johny">JOHNY KENA SLENGKAT</string>
+    <string name="terkumpul">Terkumpul</string>
+    <string name="total_terkumpul">99,999,999</string>
+    <string name="giga_chad">GIGA CHAD</string>
+    <string name="event_berakhir">Event akan berakhir pada: </string>
+    <string name="tanggal_berakhir">dd/mm/yy</string>
+    <string name="share">Bagikan</string>
+    <string name="donate">Donasi</string>
+
+    <!--Pop up-->
+    <string name="profile">Profil</string>
+    <string name="history">Riwayat</string>
+    <string name="log_out">Keluar</string>
+
+    <!--OnBoarding-->
+    <string name="OnBoarding_1">Pada teknologi saat ini sudah menggunakan keuangan secara digital dimana semua masyarakat dapat menggunakan keuangan pribadi dimana pun dan kapanpun. dengan begitu kebutuhan seseorang sudah bisa diakses atau dibantu secara online tanpa harus memerlukan waktu yang lama karena proses dilakukan secara tidak terlihat</string>
+    <string name="OnBoarding_2">Semua masyarakat sudah bisa menabung dan juga memberi jumlah nominal keuangan kepada orang lain atau kebutuhan lainnya dimana pun dan kapan pun. maka Nyoombang memberikan cara pemberian dana kepada seseorang dimana kita bisa memberikan nominal sesuai yang kita inginkan.</string>
+    <string name="OnBoarding_3">Begitu pula dengan kemajuan teknologi saat ini dimana semua informasi sudah bisa diterima secara real time terhadap semua kejadian maupun kegiatan yang sedang berlangsung, pada Nyoombang "community" sebagai penyedia dana atau kegiatan dan "User" sebagai kalian yang ingin menjadi pendana bantuaned</string>
+    <string name="OnBoarding_4">Maka tujuan Nyoombang adalah sebagai platform bantuan kepada masyarakat untuk membuat ataupun memberikan bantuan dana kepada kegiatan atau bantuan dana kepada yang membutuhkan dengan cepat</string>
+    <string name="title_activity_on_boarding">OnBoardingActivity</string>
+
+
+    <!--    &lt;!&ndash; Strings used for fragments for navigation &ndash;&gt;-->
+    <!--    <string name="first_fragment_label">First Fragment</string>-->
+    <!--    <string name="second_fragment_label">Second Fragment</string>-->
+    <!--    <string name="next">Next</string>-->
+    <!--    <string name="previous">Previous</string>-->
+
+    <!--    <string name="hello_first_fragment">Hello first fragment</string>-->
+    <!--    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>-->
+    <string name="cont_onboarding_1">onBoarding_1</string>
+    <string name="cont_onboarding_2">image_onboarding_2</string>
+    <string name="cont_onboarding_3">img_onboarding_3</string>
+    <string name="cont_onboarding_4">img_onboarding_4</string>
+    <string name="confirm_password">Konfirmasi Password</string>
+    <string name="rules">Dengan mendaftar, Anda setuju dengan </string>
+    <string name="terms">persyaratan dan layanan</string>
+    <string name="check_email">Alamat email tidak valid</string>
+    <string name="check_password">Password tidak valid</string>
+
+
+    <!---Donation-->
+
+    <string name="community">Nama Komunitas</string>
+    <string name="place">Tempat</string>
+    <string name="date">dd/mm/yyyy</string>
+    <string name="time">hh:mm:ss</string>
+    <string name="total_donation">Rp.xxx.xxx</string>
+    <string name="status">Status</string>
+
+    <string name="plc_preview_image">preview_image</string>
+    <string name="edt_hint_description">Deskripsi</string>
+    <string name="date_picker">--/--/--</string>
+    <string name="btn_add">Tambah</string>
+    <string name="img_splashscreen">splashScreen</string>
+    <string name="event_name">Nama Event</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_edit_delete_event">EditDeleteEvent</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+
+    <string name="edit">Edit</string>
+    <string name="add">Tambah Event</string>
+    <string name="hapus">Hapus</string>
+    <string name="simpan">Simpan</string>
+    <string name="no_hp">Nomor Telepon</string>
+    <string name="deskripsi_komunitas">Masukan deskripsi dari komunitasmu</string>
+    <string name="masukan_instagram">Masukan username Instagram</string>
+    <string name="masukan_facebook">Masukan username Facebook</string>
+    <string name="masukan_twitter">Masukan userame Twitter</string>
+    <string name="donation_history">Lihat Riwayat Donasimu</string>
+    <string name="selengkapnya">Selengkapnya</string>
+    <string name="minimum_payment">Minimum pembayaran adalah Rp 10.000</string>
+    <string name="bayar">Bayar</string>
+
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Selanjutnya</string>
+    <string name="previous">Sebelumnya</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

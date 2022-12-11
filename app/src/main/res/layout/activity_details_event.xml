@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.DetailsEventActivity"
+    >
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_campaign"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/Text.Title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_text_subtitle"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_campaign_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_campaign_name"
+                tools:text="Udin Petot" />
+
+            <TextView
+                android:id="@+id/tv_user_date"
+                style="@style/Text.Title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/color_text_subtitle"
+                app:layout_constraintEnd_toEndOf="@id/tv_campaign_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_campaign_name"
+                tools:text="04 Desember" />
+
+            <TextView
+                android:id="@+id/tv_campaign_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                android:maxLines="2"
+                style="@style/Text.Title3"
+                android:textStyle="bold"
+                android:textColor="@color/color3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_container"
+                tools:text="Bantu Donasi Buat Party aAa a A A AaAAAAAAAAaaAAA" />
+
+
+            <TextView
+                android:id="@+id/tv_amount_donation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/terkumpul"
+                android:textColor="@color/color_text_subtitle"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/bayar_donasi"
+                app:layout_constraintStart_toStartOf="@+id/tv_user_name" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Text.Title2"
+                android:textColor="@color/color3"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_amount_donation"
+                app:layout_constraintEnd_toEndOf="@id/tv_user_date"
+                app:layout_constraintTop_toTopOf="@id/tv_amount_donation"
+                tools:text="Rp 2.000.000.000" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edt_layout_Description"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="25dp"
+                android:focusable="false"
+                android:hint="@string/edt_hint_description"
+                android:textColorHint="@color/color1"
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:hintEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/tv_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_campaign_description"
+                    style="@style/Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
+                    android:maxLines="9"
+                    tools:text="Lorem ipsum dolor sit amet consectetur. Velit volutpat odio sed maecenas elementum et diam eleifend. Tempus mi duis purus risus mi et tincidunt. Quisque ut mi nisl non fermentum. Dignissim ornare amet tincidunt vitae nisi eu arcu semper.Lorem ipsum dolor sit amet consectetur. Velit volutpat odio sed maecenas elementum et diam eleifend. Lorem ipsum dolor sit amet consectetur. Velit volutpat odio sed maecenas elementum et diam eleifend. Lorem ipsum dolor sit amet consectetur. Velit volutpat odio sed maecenas elementum et diam eleifend. Lorem ipsum dolor sit amet consectetur. Velit volutpat odio sed maecenas elementum et diam eleifend. " />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/bayar_donasi"
+                style="@style/MaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/donate"
+                android:textColor="@color/color4"
+                android:textStyle="bold"
+                app:cornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/edt_layout_Description"
+                app:layout_constraintStart_toStartOf="@+id/edt_layout_Description" />
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/hapus"
+                android:visibility="gone"
+                style="@style/MaterialButtonStyle"
+                android:textStyle="bold"
+                app:cornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/edt_layout_Description"
+                app:layout_constraintStart_toStartOf="@+id/edt_layout_Description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
