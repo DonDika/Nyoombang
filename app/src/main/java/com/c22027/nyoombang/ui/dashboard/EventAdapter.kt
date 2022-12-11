@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ItemsCampaignBinding
 import com.c22027.nyoombang.utils.Utilization
+import java.util.TimeZone
 
 class EventAdapter (
     private val context: Context,
@@ -41,7 +42,7 @@ class EventAdapter (
             val formatAmount = Utilization.amountDonationFormat(event.totalAmount!!)
             tvAmountCampaign.text = "Rp. $formatAmount"
             tvUsername.text = event.userName
-            tvCampaignDate.text = event.endOfDate
+            tvCampaignDate.text = Utilization.formatDate(event.endOfDate, TimeZone.getDefault().id)
             Log.d("eventError",event.eventPicture.toString())
 
             container.setOnClickListener {

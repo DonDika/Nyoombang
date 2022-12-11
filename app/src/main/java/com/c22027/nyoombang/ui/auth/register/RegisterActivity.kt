@@ -178,7 +178,7 @@ class RegisterActivity : AppCompatActivity() {
                         showLoading(true)
                         Toast.makeText(
                             this@RegisterActivity,
-                            "Registration Success",
+                            "Berhasil Mendaftar",
                             Toast.LENGTH_SHORT
                         ).show()
                         intent = Intent(this, LoginActivity::class.java)
@@ -187,7 +187,7 @@ class RegisterActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@RegisterActivity,
-                            "Email already used ",
+                            "Alamat email telah digunakan ",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

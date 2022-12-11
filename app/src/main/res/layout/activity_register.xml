@@ -157,20 +157,24 @@
         style="@style/Widget.App.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"
         android:checked="false"
         app:layout_constraintBottom_toTopOf="@+id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/edt_dropdown_role" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_rules"
         style="@style/Text.Description3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="@string/rules"
         android:textColor="@color/color1"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/cbtn_terms_roles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cbtn_terms_roles"
         app:layout_constraintTop_toTopOf="@+id/cbtn_terms_roles" />
 

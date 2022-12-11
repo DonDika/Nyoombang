@@ -116,7 +116,7 @@ class AddEventActivity : AppCompatActivity() {
 
             edtDatePicker.setOnClickListener {
                 val datePicker = DatePickerDialog(this@AddEventActivity, DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-                    val temp = "${day}/${month}/${year}"
+                    val temp = "${day}/${month+1}/${year}"
                     edtDatePicker.setText(temp)
                     addEventViewModel.stateDate(temp)
                     Log.d("test1","$temp dan ${addEventViewModel.date.value.toString()}")
@@ -129,7 +129,7 @@ class AddEventActivity : AppCompatActivity() {
         val intent = Intent()
         intent.action = ACTION_GET_CONTENT
         intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        val chooser = Intent.createChooser(intent, "Pilih Gambar")
         launcherIntentGallery.launch(chooser)
     }
 
@@ -166,7 +166,7 @@ class AddEventActivity : AppCompatActivity() {
                                     finish()
                                 Toast.makeText(
                                     this@AddEventActivity,
-                                    "Event Berhasil Ditambahkan",
+                                    "Event berhasil ditambahkan",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }

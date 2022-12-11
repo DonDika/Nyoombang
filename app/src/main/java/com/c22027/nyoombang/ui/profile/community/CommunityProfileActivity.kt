@@ -1,27 +1,24 @@
 package com.c22027.nyoombang.ui.profile.community
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.c22027.nyoombang.R
-import com.c22027.nyoombang.databinding.ActivityCommunityProfileBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
+import com.c22027.nyoombang.databinding.ActivityCommunityProfileBinding
 import com.c22027.nyoombang.ui.auth.login.LoginActivity
-import com.c22027.nyoombang.ui.dashboard.DashboardActivity
-import com.c22027.nyoombang.ui.dashboard.DashboardCommunity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class CommunityProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommunityProfileBinding
     private lateinit var preferences: SharedPreferencesHelper
-    private val viewModel: CommunityProfileViewModel by viewModels()
     private val db by lazy { Firebase.firestore}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,25 +58,55 @@ class CommunityProfileActivity : AppCompatActivity() {
                             edtEmail.setText(it.data["email"].toString())
                             edtDescription.setText(it.data["description"].toString())
 
-                            if (it.data["facebook"].toString() != null || it.data["facebook"].toString() == "") {
+                            if (it.data["facebook"] != null && it.data["facebook"].toString() != "") {
+                                val id = if (it.data["facebook"].toString().startsWith("@")) {
+                                    it.data["facebook"].toString().replace("@", "")
+                                } else {
+                                    it.data["facebook"].toString()
+                                }
                                 ibFacebook.setOnClickListener {
-
+                                    startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("https://facebook.com/$id")
+                                        )
+                                    )
                                 }
                             } else {
                                 ibFacebook.visibility = View.GONE
                             }
 
-                            if (it.data["instagram"].toString() != null || it.data["instagram"].toString() == "") {
+                            if (it.data["instagram"] != null && it.data["instagram"].toString() != "") {
+                                val id = if (it.data["instagram"].toString().startsWith("@")) {
+                                    it.data["instagram"].toString().replace("@", "")
+                                } else {
+                                    it.data["instagram"].toString()
+                                }
                                 ibInstagram.setOnClickListener {
-
+                                    startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("https://instagram.com/$id")
+                                        )
+                                    )
                                 }
                             } else {
                                 ibInstagram.visibility = View.GONE
                             }
 
-                            if (it.data["twitter"].toString() != null || it.data["twitter"].toString() == "") {
+                            if (it.data["twitter"] != null && it.data["twitter"].toString() != "") {
+                                val id = if (it.data["twitter"].toString().startsWith("@")) {
+                                    it.data["twitter"].toString().replace("@", "")
+                                } else {
+                                    it.data["twitter"].toString()
+                                }
                                 ibTwitter.setOnClickListener {
-
+                                    startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("https://twitter.com/$id")
+                                        )
+                                    )
                                 }
                             } else {
                                 ibTwitter.visibility = View.GONE

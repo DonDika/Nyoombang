@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="8dp"
     android:elevation="4dp"
     app:cardBackgroundColor="@color/color7"
     app:cardUseCompatPadding="true">
@@ -13,26 +13,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/circleImageView"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            style="@style/Text.Title1"
-            android:textColor ="@color/white"
             android:id="@+id/tv_campaign_name"
-            android:layout_width="wrap_content"
+            style="@style/Text.Title4"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tv_campaign_date"
+            app:layout_constraintStart_toStartOf="@+id/tv_username"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView"
             tools:text="Name" />
 
@@ -64,12 +67,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Terkumpul"
             android:textColor="@color/white"
-            android:text ="Terkumpul"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_username"
-             />
+            app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
         <TextView
             android:id="@+id/tv_amount_campaign"
@@ -77,8 +79,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_view"
             tools:text="130000" />

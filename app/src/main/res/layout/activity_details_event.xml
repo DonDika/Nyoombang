@@ -41,42 +41,30 @@
                     tools:src="@tools:sample/backgrounds/scenic" />
             </androidx.cardview.widget.CardView>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_user"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                tools:src="@tools:sample/avatars"
-                app:civ_border_color="@color/teal_200"
-                app:civ_border_width="0.5dp"
-                app:layout_constraintStart_toStartOf="@id/tv_campaign_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_campaign_name" />
-
 
             <TextView
                 android:id="@+id/tv_user_name"
+                style="@style/Text.Title4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                tools:text="Udin Petot"
-                style="@style/Text.Title4"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_text_subtitle"
                 android:textStyle="bold"
-                android:textColor="@color/color3"
-                app:layout_constraintBottom_toBottomOf="@id/image_user"
-                app:layout_constraintStart_toEndOf="@id/image_user"
-                app:layout_constraintTop_toTopOf="@id/image_user" />
+                app:layout_constraintStart_toStartOf="@+id/tv_campaign_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_campaign_name"
+                tools:text="Udin Petot" />
 
             <TextView
                 android:id="@+id/tv_user_date"
+                style="@style/Text.Title4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="04 Desember"
-                style="@style/Text.Title4"
-                android:textStyle="bold"
-                android:textColor="@color/color3"
-                app:layout_constraintBottom_toBottomOf="@id/image_user"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/color_text_subtitle"
                 app:layout_constraintEnd_toEndOf="@id/tv_campaign_name"
-                app:layout_constraintTop_toTopOf="@id/image_user" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_campaign_name"
+                tools:text="04 Desember" />
 
             <TextView
                 android:id="@+id/tv_campaign_name"
@@ -99,13 +87,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Terkumpul"
-                android:textSize="20sp"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/gray.primary_dark"
-                app:layout_constraintStart_toStartOf="@id/image_user"
+                android:text="Terkumpul"
+                android:textColor="@color/color_text_subtitle"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@id/bayar_donasi"
-                />
+                app:layout_constraintStart_toStartOf="@+id/tv_user_name" />
 
             <TextView
                 android:id="@+id/tv_amount"
@@ -127,15 +114,15 @@
                 android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="25dp"
+                android:focusable="false"
                 android:hint="@string/edt_hint_description"
                 android:textColorHint="@color/color1"
                 app:errorIconDrawable="@drawable/ic_baseline_error_24"
                 app:hintEnabled="true"
-                android:focusable="false"
                 app:layout_constraintBottom_toTopOf="@+id/tv_amount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_user">
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_campaign_description"
@@ -155,7 +142,7 @@
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="donasi"
+                android:text="Donasi"
                 android:gravity="center"
                 android:textColor="@color/color4"
                 style="@style/MaterialButtonStyle"

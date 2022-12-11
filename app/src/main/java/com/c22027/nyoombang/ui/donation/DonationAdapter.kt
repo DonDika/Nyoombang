@@ -10,6 +10,7 @@ import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.data.model.UserTransaction
 import com.c22027.nyoombang.databinding.DonationItemLayoutBinding
 import com.c22027.nyoombang.utils.Utilization
+import java.util.TimeZone
 
 class DonationAdapter(
 var transactions: ArrayList<UserTransaction>,
@@ -40,7 +41,7 @@ var transactions: ArrayList<UserTransaction>,
             val formatAmount = Utilization.amountDonationFormat(transaction.amount.toInt())
             tvAmount.text = "Rp. $formatAmount"
             tvStatus.text = transaction.status
-            tvDate.text = transaction.transactionDate
+            tvDate.text = Utilization.formatDate(transaction.transactionDate, TimeZone.getDefault().id)
             tvTime.text = transaction.transactionTime
 
         }

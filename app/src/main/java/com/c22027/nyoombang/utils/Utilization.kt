@@ -13,7 +13,8 @@ import java.io.OutputStream
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -84,7 +85,23 @@ object Utilization {
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
 
+    fun isTimeOver(date: String): Boolean {
+        val currentTime = Calendar.getInstance()
+        val targetTime = Calendar.getInstance()
 
+        val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(date)
+        targetTime.time = formattedDate as Date
+
+        return currentTime.time >= targetTime.time
+    }
+
+    fun formatDate(currentDateString: String, targetTimeZone: String): String {
+        val date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(currentDateString)
+
+        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .withZone(ZoneId.of(targetTimeZone))
+        return formatter.format(date!!.toInstant())
+    }
 }
 
 

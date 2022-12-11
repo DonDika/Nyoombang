@@ -88,21 +88,21 @@ class RegisterViewModel(private val repository: AppsRepositoryImpl = AppsReposit
 
     fun validEmail(): String? {
         if (!Patterns.EMAIL_ADDRESS.matcher(_email.value.toString()).matches()){
-            return "Email not Valid"
+            return "Alamat Email Tidak Valid"
         }
         return null
     }
 
     fun validConfirmPassword(): String? {
         if (_password.value.toString() != _confirmPassword.value.toString()){
-            return "Password not Same"
+            return "Password Tidak Sama"
         }
         return null
     }
 
     fun validPassword(): String? {
         if (_password.value.toString().isBlank() || _password.value.toString().length < 6){
-            return "Password not Valid"
+            return "Password Tidak Valid"
         }
         return null
     }
