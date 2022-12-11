@@ -79,6 +79,21 @@
     <string name="title_activity_edit_delete_event">EditDeleteEvent</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
+
+    <string name="edit">Edit</string>
+    <string name="add">Tambah Event</string>
+    <string name="hapus">Hapus</string>
+    <string name="simpan">Simpan</string>
+    <string name="no_hp">Nomor Telepon</string>
+    <string name="deskripsi_komunitas">Masukan deskripsi dari komunitasmu</string>
+    <string name="masukan_instagram">Masukan username Instagram</string>
+    <string name="masukan_facebook">Masukan username Facebook</string>
+    <string name="masukan_twitter">Masukan userame Twitter</string>
+    <string name="donation_history">Lihat Riwayat Donasimu</string>
+    <string name="selengkapnya">Selengkapnya</string>
+    <string name="minimum_payment">Minimum pembayaran adalah Rp 10.000</string>
+    <string name="bayar">Bayar</string>
+
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Selanjutnya</string>
     <string name="previous">Sebelumnya</string>

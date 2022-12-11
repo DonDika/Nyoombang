@@ -62,7 +62,7 @@
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="4dp"
-        android:hint="Phone Number"
+        android:hint="@string/no_hp"
         android:textColorHint="@color/color_text_subtitle"
         app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:hintTextColor="@color/color1"

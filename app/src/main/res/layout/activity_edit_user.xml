@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:text="@string/simpan"
         android:textColor="@color/color3"
-        android:text="Save"
         app:layout_constraintBottom_toTopOf="@+id/circleImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Phone Number"
+        android:hint="@string/no_hp"
         android:textColorHint="@color/color1"
         app:boxStrokeColor="@color/mtrl_edt_color_state"
         app:errorIconDrawable="@drawable/ic_baseline_error_24"
