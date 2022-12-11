@@ -139,30 +139,31 @@
 
             <Button
                 android:id="@+id/bayar_donasi"
-                android:layout_width="370dp"
+                style="@style/MaterialButtonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@string/donate"
                 android:gravity="center"
+                android:text="@string/donate"
                 android:textColor="@color/color4"
-                style="@style/MaterialButtonStyle"
                 android:textStyle="bold"
                 app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
+                app:layout_constraintEnd_toEndOf="@+id/edt_layout_Description"
+                app:layout_constraintStart_toStartOf="@+id/edt_layout_Description" />
             <Button
                 android:id="@+id/btn_delete"
-                style="@style/MaterialButtonStyle"
-                android:layout_width="370dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="@string/hapus"
                 android:visibility="gone"
+                style="@style/MaterialButtonStyle"
+                android:textStyle="bold"
+                app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/edt_layout_Description"
+                app:layout_constraintStart_toStartOf="@+id/edt_layout_Description" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

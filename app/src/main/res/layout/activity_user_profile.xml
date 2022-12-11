@@ -11,9 +11,10 @@
         style="@style/Text.Description2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/edit"
-        android:textColor="@color/black"
+        android:textColor="@color/color3"
         app:layout_constraintBottom_toTopOf="@+id/civ_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +33,7 @@
 
     <TextView
         android:id="@+id/edt_name"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -52,7 +53,7 @@
         tools:text="@tools:sample/full_names" />
     <TextView
         android:id="@+id/edt_phoneNumber"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -73,7 +74,7 @@
 
     <TextView
         android:id="@+id/edt_email"
-        style="@style/Text.Description2"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -119,7 +120,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.c22027.nyoombang.ui.donation.HistoryDonation"
-        android:layout_width="415dp"
+        android:layout_width="380dp"
         android:layout_height="148dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"

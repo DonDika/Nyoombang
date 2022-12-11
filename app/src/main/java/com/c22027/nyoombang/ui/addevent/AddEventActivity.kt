@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.c22027.nyoombang.data.model.EventDataClass
 import com.c22027.nyoombang.databinding.ActivityAddEventBinding
@@ -160,6 +161,7 @@ class AddEventActivity : AppCompatActivity() {
                         .set(eventDataClass)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                showLoading(true)
                                 startActivity(Intent(this@AddEventActivity,DashboardCommunity::class.java))
                                     finish()
                                 Toast.makeText(
@@ -189,6 +191,9 @@ class AddEventActivity : AppCompatActivity() {
         with(binding){
             btnAdd.isEnabled = state
         }
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.pgLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
 }

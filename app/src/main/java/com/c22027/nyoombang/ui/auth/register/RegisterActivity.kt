@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.AdapterView.OnItemClickListener
@@ -48,6 +49,7 @@ class RegisterActivity : AppCompatActivity() {
 
         setupView()
         init()
+        showLoading(false)
     }
 
     private fun init(){
@@ -156,6 +158,7 @@ class RegisterActivity : AppCompatActivity() {
             .whereEqualTo("email", email).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
                     val document = task.result
                     if (document != null) {
                         val userProfile = UserDataClass(
@@ -172,6 +175,7 @@ class RegisterActivity : AppCompatActivity() {
                             ""
                         )
                         fireStore.collection("UsersProfile").document(key).set(userProfile)
+                        showLoading(true)
                         Toast.makeText(
                             this@RegisterActivity,
                             "Berhasil Mendaftar",
@@ -210,5 +214,8 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.pgLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

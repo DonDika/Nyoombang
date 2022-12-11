@@ -14,6 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/simpan"
+        android:textColor="@color/color3"
         app:layout_constraintBottom_toTopOf="@+id/circleImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +48,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_name"
-            style="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
+            style="@style/Text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text" />
@@ -70,11 +71,19 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_phoneNumber"
-            style="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
+            style="@style/Text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
-
+    <ProgressBar
+        android:id="@+id/pg_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
