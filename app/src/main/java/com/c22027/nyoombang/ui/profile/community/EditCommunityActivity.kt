@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.c22027.nyoombang.R
 import com.c22027.nyoombang.databinding.ActivityEditCommunityBinding
 import com.c22027.nyoombang.data.local.SharedPreferencesHelper
 import com.google.firebase.database.DatabaseReference
@@ -70,7 +72,7 @@ class EditCommunityActivity : AppCompatActivity() {
                     edtDescription.setText(description)
                     edtIg.setText(instagram)
                     edtTwitter.setText(twitter)
-                    Glide.with(this@EditCommunityActivity).load(picture).into(civProfile)
+                    Glide.with(this@EditCommunityActivity).load(picture).error(ContextCompat.getDrawable(this@EditCommunityActivity, R.drawable.icon_account)).into(civProfile)
                 }
 
             }
@@ -82,7 +84,7 @@ class EditCommunityActivity : AppCompatActivity() {
         if (it.resultCode == RESULT_OK){
             val selectedImage: Uri = it.data?.data as Uri
             filePath = selectedImage
-            Glide.with(this).load(selectedImage).centerCrop().into(binding.civProfile)
+            Glide.with(this).load(selectedImage).centerCrop().error(ContextCompat.getDrawable(this@EditCommunityActivity, R.drawable.icon_broken_image)).into(binding.civProfile)
         }
     }
 
@@ -90,7 +92,7 @@ class EditCommunityActivity : AppCompatActivity() {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a picture")
+        val chooser = Intent.createChooser(intent, "Pilih gambar")
         launcherIntentGallery.launch(chooser)
     }
 
