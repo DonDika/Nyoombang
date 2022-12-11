@@ -31,7 +31,7 @@
         app:tint="@color/color4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="create campaign" />
+        android:contentDescription="@string/add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

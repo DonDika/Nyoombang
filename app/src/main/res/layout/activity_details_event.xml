@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Terkumpul"
+                android:text="@string/terkumpul"
                 android:textColor="@color/color_text_subtitle"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@id/bayar_donasi"
@@ -142,7 +142,7 @@
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Donasi"
+                android:text="@string/donate"
                 android:gravity="center"
                 android:textColor="@color/color4"
                 style="@style/MaterialButtonStyle"
@@ -151,14 +151,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
             <Button
                 android:id="@+id/btn_delete"
+                style="@style/MaterialButtonStyle"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Hapus"
-                android:visibility= "gone"
-                style="@style/MaterialButtonStyle"
+                android:text="@string/hapus"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Save"
+        android:text="@string/simpan"
         app:layout_constraintBottom_toTopOf="@+id/civ_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_name"
-        android:hint="Phone Number" />
+        android:hint="@string/no_hp" />
 
     <EditText
         android:id="@+id/edt_description"
@@ -97,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_phoneNumber"
-        android:hint="Insert Your Community Description" />
+        android:hint="@string/deskripsi_komunitas" />
 
     <EditText
         android:id="@+id/edt_ig"
@@ -118,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_description"
-        android:hint="Insert Your Community Instagram" />
+        android:hint="@string/masukan_instagram" />
     <EditText
         android:id="@+id/edt_fb"
         style="@style/Text.Description2"
@@ -138,7 +138,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_ig"
-        android:hint="Insert Your Community facebook" />
+        android:hint="@string/masukan_facebook" />
 
     <EditText
         android:id="@+id/edt_twitter"
@@ -159,6 +159,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_fb"
-        android:hint="Insert Your Community Twitter" />
+        android:hint="@string/masukan_twitter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
