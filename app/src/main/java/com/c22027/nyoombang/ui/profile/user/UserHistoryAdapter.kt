@@ -7,6 +7,7 @@ import com.c22027.nyoombang.data.model.UserTransaction
 import com.c22027.nyoombang.databinding.DonationItemLayoutBinding
 
 import com.c22027.nyoombang.utils.Utilization
+import java.util.TimeZone
 
 class UserHistoryAdapter(
     var userTransaction: ArrayList<UserTransaction>
@@ -38,7 +39,7 @@ class UserHistoryAdapter(
             val formatAmount = Utilization.amountDonationFormat(userData.amount.toInt())
             tvAmount.text = "Rp. $formatAmount"
             tvStatus.text = userData.status
-            tvDate.text = userData.transactionDate
+            tvDate.text = Utilization.formatDate(userData.transactionDate, TimeZone.getDefault().id)
             tvTime.text = userData.transactionTime
         }
 
